@@ -1,0 +1,153 @@
+{
+  "yu-gi-oh": [
+    {
+      "id": 1,
+      "name": "Dark Magician",
+      "atk": 2500,
+      "def": 2100,
+      "img": "https://static.wikia.nocookie.net/yugioh/images/a/ae/DarkMagician-STAX-EN-C-1E.png"
+    },
+    {
+      "id": 2,
+      "name": "Blue-Eyes White Dragon",
+      "atk": 3000,
+      "def": 2500,
+      "img": "https://static.wikia.nocookie.net/yugioh/images/5/5f/BlueEyesWhiteDragon-KC01-EN-UR-1E.png"
+    },
+    {
+      "id": 3,
+      "name": "Red-Eyes Black Dragon",
+      "atk": 2400,
+      "def": 2000,
+      "img": "https://static.wikia.nocookie.net/yugioh/images/0/05/RedEyesBlackDragon-TN23-EN-QCScR-LE.png"
+    },
+    {
+      "id": 4,
+      "name": "Exodia the Forbidden One",
+      "atk": 1000,
+      "def": 1000,
+      "img": "https://static.wikia.nocookie.net/yugioh/images/a/a7/ExodiatheForbiddenOne-TN23-EN-QCScR-LE.png"
+    },
+    {
+      "id": 5,
+      "name": "Slifer the Sky Dragon",
+      "atk": 1000,
+      "def": 1000,
+      "img": "https://static.wikia.nocookie.net/yugioh/images/f/f2/SlifertheSkyDragon-SBC1-EN-ScR-1E.png"
+    },
+    {
+      "id": 6,
+      "name": "Obelisk the Tormentor",
+      "atk": 1000,
+      "def": 1000,
+      "img": "https://static.wikia.nocookie.net/yugioh/images/e/ef/ObelisktheTormentor-KICO-EN-UR-1E.png"
+    },
+    {
+      "id": 7,
+      "name": "The Winged Dragon of Ra",
+      "atk": 1000,
+      "def": 1000,
+      "img": "https://static.wikia.nocookie.net/yugioh/images/f/f5/TheWingedDragonofRa-KICO-EN-UR-1E.png"
+    }
+  ],
+  "pokemon": [
+    {
+      "id": 1,
+      "name": "Bulbasaur",
+      "type": "Grass",
+      "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png"
+    },
+    {
+      "id": 2,
+      "name": "Ivysaur",
+      "type": "Grass",
+      "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/2.png"
+    },
+    {
+      "id": 3,
+      "name": "Venusaur",
+      "type": "Grass",
+      "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/3.png"
+    },
+    {
+      "id": 4,
+      "name": "Charmander",
+      "type": "Fire",
+      "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png"
+    },
+    {
+      "id": 5,
+      "name": "Charmeleon",
+      "type": "Fire",
+      "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/5.png"
+    },
+    {
+      "id": 6,
+      "name": "Charizard",
+      "type": "Fire",
+      "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png"
+    },
+    {
+      "id": 7,
+      "name": "Squirtle",
+      "type": "Water",
+      "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/7.png"
+    },
+    {
+      "id": 8,
+      "name": "Wartortle",
+      "type": "Water",
+      "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/8.png"
+    },
+    {
+      "id": 9,
+      "name": "Blastoise",
+      "type": "Water",
+      "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/9.png"
+    }
+  ],
+  "dragon-ball-z": [
+    {
+      "id": 1,
+      "name": "Goku",
+      "power": 9000,
+      "img": "https://static.wikia.nocookie.net/dragonball/images/b/ba/Goku_anime_profile.png"
+    },
+    {
+      "id": 2,
+      "name": "Vegeta",
+      "power": 8000,
+      "img": "https://static.wikia.nocookie.net/dragonball/images/9/94/Vegeta_anime_profile.png"
+    },
+    {
+      "id": 3,
+      "name": "Gohan",
+      "power": 7000,
+      "img": "https://static.wikia.nocookie.net/dragonball/images/3/3b/Gohan_anime_profile_3.png"
+    },
+    {
+      "id": 4,
+      "name": "Piccolo",
+      "power": 6000,
+      "img": "https://static.wikia.nocookie.net/dragonball/images/7/71/Piccolo_anime_movie_profile.png"
+    },
+    {
+      "id": 5,
+      "name": "Krillin",
+      "power": 5000,
+      "img": "https://static.wikia.nocookie.net/dragonball/images/5/54/Krillin_DB_Episode_134.png"
+    },
+    {
+      "id": 6,
+      "name": "Tien",
+      "power": 4000,
+      "img": "https://static.wikia.nocookie.net/dragonball/images/e/e2/Tien_DBZ_Episode_152.png"
+    },
+    {
+      "id": 7,
+      "name": "Yamcha",
+      "power": 3000,
+      "img": "https://static.wikia.nocookie.net/dragonball/images/5/59/Yamcha_DB_Episode_138.png"
+    }
+  ]
+}
