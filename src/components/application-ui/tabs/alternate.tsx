@@ -1,12 +1,10 @@
 "use client"
 
-import AddIcon from "@mui/icons-material/Add"
 import {
   Box,
   Card,
   CardHeader,
   Divider,
-  IconButton,
   MenuItem,
   Select,
   SelectChangeEvent,
@@ -102,7 +100,7 @@ export default function AlternateTabs() {
   const handleSelectChange = (event: SelectChangeEvent<number>) => setValue(Number(event.target.value))
 
   const handleAddNewCard = () => {
-    alert("Add new card")
+    // alert("Add new card")
   }
 
   return (
