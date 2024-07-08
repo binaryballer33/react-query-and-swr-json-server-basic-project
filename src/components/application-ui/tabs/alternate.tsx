@@ -1,10 +1,12 @@
 "use client"
 
+import AddIcon from "@mui/icons-material/Add"
 import {
   Box,
   Card,
   CardHeader,
   Divider,
+  IconButton,
   MenuItem,
   Select,
   SelectChangeEvent,
@@ -19,6 +21,7 @@ import { ReactNode, SyntheticEvent, useState } from "react"
 import DragonBallZCards from "src/components/cards/dragon-ball-z/dragon-ball-z-card"
 import PokemonCards from "src/components/cards/pokemon/pokemon-card"
 import YuGiOhCards from "src/components/cards/yu-gi-oh/yu-ig-oh-cards"
+import WideFormDrawer from "../drawers/wide-form/wide-form"
 
 const TabsAlternate = styled(Tabs)(({ theme }) => ({
   overflow: "visible",
@@ -98,6 +101,10 @@ export default function AlternateTabs() {
   const handleTabChange = (_event: SyntheticEvent, newValue: number) => setValue(newValue)
   const handleSelectChange = (event: SelectChangeEvent<number>) => setValue(Number(event.target.value))
 
+  const handleAddNewCard = () => {
+    alert("Add new card")
+  }
+
   return (
     <Stack
       justifyContent="center"
@@ -111,7 +118,12 @@ export default function AlternateTabs() {
           width: "100%",
         }}
       >
-        <CardHeader title="My Cards" sx={{ textAlign: "center", color: "primary.main" }} />
+        <Box display="flex" minWidth={1} justifyContent="space-around">
+          <CardHeader title="My Cards" sx={{ color: "primary.main" }} />
+          <Box>
+            <WideFormDrawer />
+          </Box>
+        </Box>
         <Divider />
         <CardHeader
           sx={{

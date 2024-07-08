@@ -1,6 +1,7 @@
+import { Box } from "@mui/material"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
-import SWRProvider from "src/context/swr"
+import ProviderLayout from "src/layouts"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -17,7 +18,11 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <SWRProvider>{children}</SWRProvider>
+        <ProviderLayout>
+          <Box width="95%" m="auto">
+            <Box my={2}>{children}</Box>
+          </Box>
+        </ProviderLayout>
       </body>
     </html>
   )

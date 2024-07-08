@@ -1,8 +1,7 @@
-/* eslint-disable no-console */
 import axios from "axios"
 import QUERY_ROUTES from "src/router/query-routes"
 
-export const axiosInstance = axios.create({
+const axiosInstance = axios.create({
   baseURL: QUERY_ROUTES.BACKEND_BASE_URL,
 })
 
