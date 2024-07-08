@@ -1,5 +1,5 @@
 {
-  "name": "testing-stale-while-revalidating",
+  "name": "react-query-and-swr-json-server-basic-project",
   "version": "0.1.0",
   "private": true,
   "scripts": {
