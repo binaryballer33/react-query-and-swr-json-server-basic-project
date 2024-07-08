@@ -10,11 +10,11 @@ type DragonBallZCardItemProps = {
 
 export default function DragonBallZCardItem({ card }: DragonBallZCardItemProps) {
   const handleEditCard = () => {
-    alert("Edit Card")
+    // alert("Edit Card")
   }
 
   const handleDeleteCard = () => {
-    alert("Delete Card")
+    // alert("Delete Card")
   }
 
   return (

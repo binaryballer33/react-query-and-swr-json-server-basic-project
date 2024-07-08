@@ -10,11 +10,11 @@ type YuGiOhCardItemProps = {
 
 export default function YuGiOhCardItem({ card }: YuGiOhCardItemProps) {
   const handleEditCard = () => {
-    alert("Edit Card")
+    // alert("Edit Card")
   }
 
   const handleDeleteCard = () => {
-    alert("Delete Card")
+    // alert("Delete Card")
   }
 
   return (

@@ -10,11 +10,11 @@ type PokemonCardItemProps = {
 
 export default function PokemonCardItem({ card }: PokemonCardItemProps) {
   const handleEditCard = () => {
-    alert("Edit Card")
+    // alert("Edit Card")
   }
 
   const handleDeleteCard = () => {
-    alert("Delete Card")
+    // alert("Delete Card")
   }
 
   return (
