@@ -20,7 +20,7 @@ export default function YuGiOhCardItem({ card }: YuGiOhCardItemProps) {
 
   return (
     <Grid sx={{ background: (theme) => theme.palette.background.paper, border: 1 }}>
-      <Image src={card.img} alt={card.name} width={320} height={320} />
+      <Image src={card.img} alt={card.name} width={320} height={320} priority />
       <Divider sx={{ border: 1 }} />
       <Box p={2}>
         <h3>Name: {card.name}</h3>

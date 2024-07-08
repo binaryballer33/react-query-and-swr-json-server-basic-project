@@ -1,5 +1,5 @@
 import { Unstable_Grid2 as Grid } from "@mui/material/"
-import { useGetYuGiOhCards } from "src/services/queries"
+import useGetYuGiOhCards from "src/api/yu-gi-oh/queries/get-all-yu-gi-oh-cards"
 import YuGiOhCardItem from "./yu-gi-oh-card-item"
 
 export default function YuGiOhCards() {

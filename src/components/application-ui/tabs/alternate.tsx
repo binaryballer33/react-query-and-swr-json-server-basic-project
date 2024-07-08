@@ -16,8 +16,8 @@ import {
   useTheme,
 } from "@mui/material"
 import { ReactNode, SyntheticEvent, useState } from "react"
-import DragonBallZCards from "src/components/cards/dragon-ball-z/dragon-ball-z-card"
-import PokemonCards from "src/components/cards/pokemon/pokemon-card"
+import DragonBallZCards from "src/components/cards/dragon-ball-z/dragon-ball-z-cards"
+import PokemonCards from "src/components/cards/pokemon/pokemon-cards"
 import YuGiOhCards from "src/components/cards/yu-gi-oh/yu-ig-oh-cards"
 import WideFormDrawer from "../drawers/wide-form/wide-form"
 

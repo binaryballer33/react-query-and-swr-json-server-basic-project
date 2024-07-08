@@ -1,9 +1,9 @@
 import { Unstable_Grid2 as Grid } from "@mui/material/"
-import { useGetDragonBallZCards } from "src/services/queries"
-import DragonBallZCardItem from "./dragon-ball-z-card-item"
+import useGetPokemonCards from "src/api/pokemon/queries/get-all-pokemon-cards"
+import PokemonCardItem from "./pokemon-card-item"
 
-export default function DragonBallZCards() {
-  const { data: cards, isLoading, error } = useGetDragonBallZCards()
+export default function PokemonCards() {
+  const { data: cards, isLoading, error } = useGetPokemonCards()
 
   if (error) return <p>Error: {error.message}</p>
   if (isLoading) return <p>Loading...</p>
@@ -12,7 +12,7 @@ export default function DragonBallZCards() {
   return (
     <Grid container gap={4} sx={{ display: "flex", justifyContent: "center" }}>
       {cards.map((card) => (
-        <DragonBallZCardItem key={card.id} card={card} />
+        <PokemonCardItem key={card.id} card={card} />
       ))}
     </Grid>
   )
