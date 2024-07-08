@@ -19,6 +19,8 @@
     "@mui/icons-material": "^5.15.21",
     "@mui/material": "^5.15.21",
     "@reduxjs/toolkit": "^2.2.6",
+    "@tanstack/react-query": "^5.50.1",
+    "@tanstack/react-query-devtools": "^5.50.1",
     "axios": "^1.7.2",
     "json-server": "^0.17.4",
     "next": "14.2.4",
@@ -33,6 +35,7 @@
   "devDependencies": {
     "@ianvs/prettier-plugin-sort-imports": "^4.3.0",
     "@next/eslint-plugin-next": "^14.2.4",
+    "@tanstack/eslint-plugin-query": "^5.50.1",
     "@types/json-server": "^0.14.7",
     "@types/node": "^20",
     "@types/react": "^18",
