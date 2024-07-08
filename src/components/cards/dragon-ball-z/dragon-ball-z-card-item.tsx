@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import DeleteIcon from "@mui/icons-material/Delete"
 import EditIcon from "@mui/icons-material/Edit"
 import { Box, Divider, Unstable_Grid2 as Grid, IconButton } from "@mui/material"

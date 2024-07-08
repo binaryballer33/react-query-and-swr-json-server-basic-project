@@ -1,35 +1,26 @@
+import { useQuery } from "@tanstack/react-query"
 import { DragonBallZCard } from "src/model/dragon-ball-z"
 import { PokemonCard } from "src/model/pokemon"
 import { YuGiOhCard } from "src/model/yu-gi-oh"
-import QUERY_ROUTES from "src/router/query-routes"
-import useSWR from "swr"
+import { getYuGiOhCards } from "./fetcher"
 
 export function useGetYuGiOhCards() {
-  const { data, error, isLoading } = useSWR<YuGiOhCard[]>(QUERY_ROUTES.YUGIOH)
-
-  return {
-    data,
-    error,
-    isLoading,
-  }
+  return useQuery<YuGiOhCard[]>({
+    queryKey: ["yu-gi-oh-cards"],
+    queryFn: getYuGiOhCards,
+  })
 }
 
 export function useGetPokemonCards() {
-  const { data, error, isLoading } = useSWR<PokemonCard[]>(QUERY_ROUTES.POKEMON)
-
-  return {
-    data,
-    error,
-    isLoading,
-  }
+  return useQuery<PokemonCard[]>({
+    queryKey: ["pokemon-cards"],
+    queryFn: getYuGiOhCards,
+  })
 }
 
 export function useGetDragonBallZCards() {
-  const { data, error, isLoading } = useSWR<DragonBallZCard[]>(QUERY_ROUTES.DRAGON_BALL_Z)
-
-  return {
-    data,
-    error,
-    isLoading,
-  }
+  return useQuery<DragonBallZCard[]>({
+    queryKey: ["dragon-ball-z-cards"],
+    queryFn: getYuGiOhCards,
+  })
 }

@@ -5,6 +5,14 @@ const axiosInstance = axios.create({
   baseURL: QUERY_ROUTES.BACKEND_BASE_URL,
 })
 
-const fetcher = (url: string) => axiosInstance.get(url).then((res) => res.data)
+export async function getYuGiOhCards() {
+  return (await axiosInstance.get(QUERY_ROUTES.YUGIOH)).data
+}
 
-export default fetcher
+export async function getPokemonCards() {
+  return (await axiosInstance.get(QUERY_ROUTES.POKEMON)).data
+}
+
+export async function getDragonBallZCards() {
+  return (await axiosInstance.get(QUERY_ROUTES.DRAGON_BALL_Z)).data
+}
