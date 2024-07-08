@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query"
 import { DragonBallZCard } from "src/model/dragon-ball-z"
 import { PokemonCard } from "src/model/pokemon"
 import { YuGiOhCard } from "src/model/yu-gi-oh"
-import { getYuGiOhCards } from "./fetcher"
+import { getYuGiOhCards } from "./api"
 
 export function useGetYuGiOhCards() {
   return useQuery<YuGiOhCard[]>({

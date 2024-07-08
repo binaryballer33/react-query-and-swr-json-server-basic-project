@@ -6,13 +6,13 @@ const axiosInstance = axios.create({
 })
 
 export async function getYuGiOhCards() {
-  return (await axiosInstance.get(QUERY_ROUTES.YUGIOH)).data
+  return (await axiosInstance.get(QUERY_ROUTES.GET_ALL_YUGIOH_CARDS)).data
 }
 
 export async function getPokemonCards() {
-  return (await axiosInstance.get(QUERY_ROUTES.POKEMON)).data
+  return (await axiosInstance.get(QUERY_ROUTES.GET_ALL_POKEMON_CARDS)).data
 }
 
 export async function getDragonBallZCards() {
-  return (await axiosInstance.get(QUERY_ROUTES.DRAGON_BALL_Z)).data
+  return (await axiosInstance.get(QUERY_ROUTES.GET_ALL_DRAGON_BALL_Z_CARDS)).data
 }
