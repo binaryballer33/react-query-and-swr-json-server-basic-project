@@ -224,6 +224,18 @@
       "name": "Nidoran♀",
       "type": "Poison",
       "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/29.png"
+    },
+    {
+      "id": 30,
+      "name": "Nidorina",
+      "type": "Poison",
+      "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/30.png"
+    },
+    {
+      "id": 31,
+      "name": "Nidoqueen",
+      "type": "Poison",
+      "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/31.png"
     }
   ],
   "dragon-ball-z": [

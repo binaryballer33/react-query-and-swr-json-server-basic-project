@@ -6,8 +6,8 @@ import ProviderLayout from "src/layouts"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Testing SWR with Next.js",
-  description: "Stale-While-Revalidate (SWR) with Next.js",
+  title: "Testing React-Query And SWR With Next.js 14 App Router",
+  description: "React-Query And Stale-While-Revalidate (SWR) with Next.js",
 }
 
 type RootLayoutProps = {

@@ -1,17 +1,12 @@
 "use client"
 
-import { Box } from "@mui/material"
-import CssBaseline from "@mui/material/CssBaseline"
-import { ThemeProvider as MuiThemeProvider } from "@mui/material/styles"
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
+import { Box, CssBaseline, ThemeProvider as MuiThemeProvider } from "@mui/material"
 import { type ReactNode } from "react"
 import { Provider as ReduxProvider } from "react-redux"
+import ReactQueryClientProvider from "src/api/query-client-provider"
 import Toastr from "src/components/base/toastr" // for notification overlays
 import { store, useSelector } from "src/store"
 import { darkTheme, lightTheme } from "src/theme/theme"
-
-const queryClient = new QueryClient()
 
 type ThemeProviderProps = {
   children: ReactNode
@@ -25,10 +20,7 @@ function ThemeProvider({ children }: ThemeProviderProps) {
     <MuiThemeProvider theme={theme}>
       <CssBaseline />
       <Box display="flex" minHeight="100vh">
-        <QueryClientProvider client={queryClient}>
-          {children}
-          <ReactQueryDevtools initialIsOpen={false} />
-        </QueryClientProvider>
+        <ReactQueryClientProvider>{children}</ReactQueryClientProvider>
       </Box>
       <Toastr />
     </MuiThemeProvider>

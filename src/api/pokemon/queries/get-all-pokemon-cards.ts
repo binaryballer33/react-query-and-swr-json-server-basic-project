@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
+import QUERY_KEYS from "src/api/query-keys"
 import { PokemonCard } from "src/model/pokemon"
 import QUERY_ROUTES from "src/router/query-routes"
 import axiosInstance from "../../xhr-request-instance"
@@ -9,7 +10,8 @@ export async function getPokemonCards() {
 
 export default function useGetPokemonCards() {
   return useQuery<PokemonCard[]>({
-    queryKey: ["pokemon-cards"],
+    queryKey: QUERY_KEYS.GET_ALL_POKEMON_CARDS,
     queryFn: getPokemonCards,
+    staleTime: 1000 * 60 * 5, // 5 minutes
   })
 }

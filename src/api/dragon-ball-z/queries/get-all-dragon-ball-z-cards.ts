@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
+import QUERY_KEYS from "src/api/query-keys"
 import { DragonBallZCard } from "src/model/dragon-ball-z"
 import QUERY_ROUTES from "src/router/query-routes"
 import axiosInstance from "../../xhr-request-instance"
@@ -9,7 +10,8 @@ export async function getDragonBallZCards() {
 
 export default function useGetDragonBallZCards() {
   return useQuery<DragonBallZCard[]>({
-    queryKey: ["dragon-ball-z-cards"],
+    queryKey: QUERY_KEYS.GET_ALL_DRAGON_BALL_Z_CARDS,
     queryFn: getDragonBallZCards,
+    staleTime: 1000 * 60 * 5, // 5 minutes
   })
 }

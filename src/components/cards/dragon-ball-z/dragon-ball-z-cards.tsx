@@ -1,5 +1,5 @@
 import { Unstable_Grid2 as Grid } from "@mui/material/"
-import useGetDragonBallZCards from "src/api/dragon-ball-z/queries/get-dragon-ball-z-cards"
+import useGetDragonBallZCards from "src/api/dragon-ball-z/queries/get-all-dragon-ball-z-cards"
 import DragonBallZCardItem from "./dragon-ball-z-card-item"
 
 export default function DragonBallZCards() {
