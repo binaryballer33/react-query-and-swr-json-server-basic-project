@@ -12,6 +12,5 @@ export default function useGetPokemonCards() {
   return useQuery<PokemonCard[]>({
     queryKey: QUERY_KEYS.GET_ALL_POKEMON_CARDS,
     queryFn: getPokemonCards,
-    staleTime: 1000 * 60 * 5, // 5 minutes
   })
 }

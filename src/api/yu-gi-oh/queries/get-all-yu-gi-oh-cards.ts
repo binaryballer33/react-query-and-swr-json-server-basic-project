@@ -12,6 +12,5 @@ export default function useGetYuGiOhCards() {
   return useQuery<YuGiOhCard[]>({
     queryKey: QUERY_KEYS.GET_ALL_YU_GI_OH_CARDS,
     queryFn: getYuGiOhCards,
-    staleTime: 1000 * 60 * 5, // 5 minutes
   })
 }

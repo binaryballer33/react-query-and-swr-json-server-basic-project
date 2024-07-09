@@ -12,6 +12,5 @@ export default function useGetDragonBallZCards() {
   return useQuery<DragonBallZCard[]>({
     queryKey: QUERY_KEYS.GET_ALL_DRAGON_BALL_Z_CARDS,
     queryFn: getDragonBallZCards,
-    staleTime: 1000 * 60 * 5, // 5 minutes
   })
 }
