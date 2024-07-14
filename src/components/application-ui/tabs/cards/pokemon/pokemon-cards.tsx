@@ -1,6 +1,6 @@
 import { Unstable_Grid2 as Grid } from "@mui/material/"
 import useGetPokemonCardsQuery from "src/api/pokemon/queries/get-all-pokemon-cards"
-import PokemonCardItem from "./pokemon-card-item"
+import PokemonCardItem from "../card-item"
 
 export default function PokemonCards() {
   // because the data is being prefetched we really don't need to check for the isLoading state

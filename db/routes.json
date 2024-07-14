@@ -1,5 +1,13 @@
 {
   "/yu-gi-oh/create-card": "/yu-gi-oh",
+  "/yu-gi-oh/delete-card/:id": "/yu-gi-oh/:id",
+  "/yu-gi-oh/update-card/:id": "/yu-gi-oh/:id",
+
   "/pokemon/create-card": "/pokemon",
-  "/dragon-ball-z/create-card": "/dragon-ball-z"
+  "/pokemon/delete-card/:id": "/pokemon/:id",
+  "/pokemon/update-card/:id": "/pokemon/:id",
+
+  "/dragon-ball-z/create-card": "/dragon-ball-z",
+  "/dragon-ball-z/delete-card/:id": "/dragon-ball-z/:id",
+  "/dragon-ball-z/update-card/:id": "/dragon-ball-z/:id"
 }

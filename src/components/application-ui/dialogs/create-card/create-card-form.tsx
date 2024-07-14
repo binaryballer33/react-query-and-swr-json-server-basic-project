@@ -36,7 +36,7 @@ export default function CreateCard(props: CreateCardProps) {
   const [value, setValue] = useState(0)
   const [game, setGame] = useState(GAME.YU_GI_OH)
 
-  function useGetCardMutation(game: GAME) {
+  function useCreateCardMutation(game: GAME) {
     const yugiohMutation = useCreateYuGiOhCardMutation()
     const pokemonMutation = useCreatePokemonCardMutation()
     const dragonBallZMutation = useCreateDragonBallZCardMutation()
@@ -71,7 +71,7 @@ export default function CreateCard(props: CreateCardProps) {
     }
   }
 
-  const { isPending, mutate: createCardMutation } = useGetCardMutation(game)
+  const { isPending, mutate: createCardMutation } = useCreateCardMutation(game)
 
   const handleSelectChange = (event: SelectChangeEvent<number>) => setValue(Number(event.target.value))
 

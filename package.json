@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "json-server": "json-server --watch db/db.json -p 3333 --routes db/routes.json",
     "rm:all": "rm -rf node_modules .next out dist build",
     "re:start": "npm rm:all && npm install && npm dev",
     "re:build": "npm rm:all && npm install && npm build",

@@ -19,12 +19,11 @@ import {
   useTheme,
 } from "@mui/material"
 import { ReactNode, SyntheticEvent, useState } from "react"
-import DragonBallZCards from "src/components/cards/dragon-ball-z/dragon-ball-z-cards"
-import PokemonCards from "src/components/cards/pokemon/pokemon-cards"
-import YuGiOhCards from "src/components/cards/yu-gi-oh/yu-ig-oh-cards"
+import DragonBallZCards from "src/components/application-ui/tabs/cards/dragon-ball-z/dragon-ball-z-cards"
+import PokemonCards from "src/components/application-ui/tabs/cards/pokemon/pokemon-cards"
+import YuGiOhCards from "src/components/application-ui/tabs/cards/yu-gi-oh/yu-ig-oh-cards"
 import useHeader from "src/hooks/use-header"
 import CreateCardDialog from "../dialogs/create-card/create-card-dialog"
-import WideFormDrawer from "../drawers/wide-form/wide-form"
 
 const TabsAlternate = styled(Tabs)(({ theme }) => ({
   overflow: "visible",
@@ -95,7 +94,7 @@ function a11yProps(index: number) {
   }
 }
 
-export default function AlternateTabs() {
+export default function CardTabs() {
   const theme = useTheme()
   const smUp = useMediaQuery(theme.breakpoints.up("sm"))
   const [value, setValue] = useState(0)
@@ -105,10 +104,6 @@ export default function AlternateTabs() {
   // need event even if not used or component does not work
   const handleTabChange = (_event: SyntheticEvent, newValue: number) => setValue(newValue)
   const handleSelectChange = (event: SelectChangeEvent<number>) => setValue(Number(event.target.value))
-
-  const handleAddNewCard = () => {
-    // alert("Add new card")
-  }
 
   return (
     <Stack

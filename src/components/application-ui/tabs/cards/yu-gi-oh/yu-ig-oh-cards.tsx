@@ -1,7 +1,7 @@
 import { Unstable_Grid2 as Grid } from "@mui/material/"
 import useGetYuGiOhCardsQuery from "src/api/yu-gi-oh/queries/get-all-yu-gi-oh-cards"
 import useGetYugiohCardByIdQuery from "src/api/yu-gi-oh/queries/get-yu-gi-oh-card"
-import YuGiOhCardItem from "./yu-gi-oh-card-item"
+import YuGiOhCardItem from "../card-item"
 
 export default function YuGiOhCards() {
   const { data: cards, isLoading: isLoadingCards, error: errorCards } = useGetYuGiOhCardsQuery()
