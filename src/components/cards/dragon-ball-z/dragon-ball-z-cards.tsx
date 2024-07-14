@@ -1,9 +1,9 @@
 import { Unstable_Grid2 as Grid } from "@mui/material/"
-import useGetDragonBallZCards from "src/api/dragon-ball-z/queries/get-all-dragon-ball-z-cards"
+import useGetDragonBallZCardsQuery from "src/api/dragon-ball-z/queries/get-all-dragon-ball-z-cards"
 import DragonBallZCardItem from "./dragon-ball-z-card-item"
 
 export default function DragonBallZCards() {
-  const { data: cards, isLoading, error } = useGetDragonBallZCards()
+  const { data: cards, isLoading, error } = useGetDragonBallZCardsQuery()
   // const { data: card, isLoading: isLoadingCard, error: errorCard } = useGetDragonBallZCardById(1)
 
   if (error) return <p>Error: {error.message}</p>

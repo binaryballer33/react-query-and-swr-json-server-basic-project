@@ -3,7 +3,7 @@ import DeleteIcon from "@mui/icons-material/Delete"
 import EditIcon from "@mui/icons-material/Edit"
 import { Box, Divider, Unstable_Grid2 as Grid, IconButton } from "@mui/material"
 import Image from "next/image"
-import { PokemonCard } from "src/model/pokemon"
+import { PokemonCard } from "src/model/cards/pokemon"
 
 type PokemonCardItemProps = {
   card: PokemonCard

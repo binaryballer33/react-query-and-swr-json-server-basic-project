@@ -3,7 +3,7 @@ import DeleteIcon from "@mui/icons-material/Delete"
 import EditIcon from "@mui/icons-material/Edit"
 import { Box, Divider, Unstable_Grid2 as Grid, IconButton } from "@mui/material"
 import Image from "next/image"
-import { YuGiOhCard } from "src/model/yu-gi-oh"
+import { YuGiOhCard } from "src/model/cards/yu-gi-oh"
 
 type YuGiOhCardItemProps = {
   card: YuGiOhCard
@@ -25,8 +25,8 @@ export default function YuGiOhCardItem({ card }: YuGiOhCardItemProps) {
       <Box p={2}>
         <h3>Name: {card.name}</h3>
         <h2>Id: {card.id}</h2>
-        <h4>ATK: {card.atk}</h4>
-        <h4>DEF: {card.def}</h4>
+        <h4>ATK: {card.attack}</h4>
+        <h4>DEF: {card.defense}</h4>
       </Box>
       <Box display="flex" justifyContent="center">
         <IconButton aria-label="Edit Card" color="success" onClick={() => handleEditCard()}>

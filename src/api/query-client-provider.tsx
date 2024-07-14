@@ -1,14 +1,12 @@
 "use client"
 
-import { dehydrate, HydrationBoundary, isServer, QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import { isServer, QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
-import { useEffect, useState } from "react"
-import { getDragonBallZCards } from "src/api/dragon-ball-z/queries/get-all-dragon-ball-z-cards"
-import { getPokemonCards } from "src/api/pokemon/queries/get-all-pokemon-cards"
-import QUERY_KEYS from "src/api/query-keys"
-import { getYuGiOhCards } from "src/api/yu-gi-oh/queries/get-all-yu-gi-oh-cards"
 
-/* NEVER DO THIS: per docs: https://tanstack.com/query/latest/docs/framework/react/guides/ssr#initial-setup
+/*
+ * Since QueryClientProvider relies on useContext under the hood, we have to put 'use client' on top
+
+ * NEVER DO THIS: per docs: https://tanstack.com/query/latest/docs/framework/react/guides/ssr#initial-setup
  * const queryClient = new QueryClient()
  *
  * Creating the queryClient at the file root level makes the cache shared
@@ -19,8 +17,7 @@ function makeQueryClient() {
   return new QueryClient({
     defaultOptions: {
       queries: {
-        // With SSR, set some default staleTime to avoid refetching immediately on the client
-        staleTime: 60 * 1000,
+        staleTime: 60 * 1000, // set some default staleTime to avoid refetching immediately on the client
       },
     },
   })
@@ -28,7 +25,7 @@ function makeQueryClient() {
 
 let browserQueryClient: QueryClient | undefined
 
-export function getQueryClient() {
+function getQueryClient() {
   // Server: ALWAYS make a new query client
   if (isServer) return makeQueryClient()
 
@@ -52,22 +49,6 @@ export default function ReactQueryClientProvider({ children }: ReactQueryClientP
   //       suspend because React will throw away the client on the initial
   //       render if it suspends and there is no boundary
   const queryClient = getQueryClient()
-
-  // do the prefetching after the component mounts in order to prevent hyration errors
-  // useEffect(() => {
-  // queryClient.prefetchQuery({
-  //   queryKey: QUERY_KEYS.GET_ALL_POKEMON_CARDS,
-  //   queryFn: getPokemonCards,
-  // })
-  // queryClient.prefetchQuery({
-  //   queryKey: QUERY_KEYS.GET_ALL_DRAGON_BALL_Z_CARDS,
-  //   queryFn: getDragonBallZCards,
-  // })
-  // queryClient.prefetchQuery({
-  //   queryKey: QUERY_KEYS.GET_ALL_YU_GI_OH_CARDS,
-  //   queryFn: getYuGiOhCards,
-  // })
-  // }, [queryClient])
 
   return (
     <QueryClientProvider client={queryClient}>

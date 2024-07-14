@@ -1,10 +1,12 @@
 "use client"
 
+import CreditCardIcon from "@mui/icons-material/CreditCard"
 import {
   Box,
   Card,
   CardHeader,
   Divider,
+  IconButton,
   MenuItem,
   Select,
   SelectChangeEvent,
@@ -12,6 +14,7 @@ import {
   styled,
   Tab,
   Tabs,
+  Typography,
   useMediaQuery,
   useTheme,
 } from "@mui/material"
@@ -19,6 +22,8 @@ import { ReactNode, SyntheticEvent, useState } from "react"
 import DragonBallZCards from "src/components/cards/dragon-ball-z/dragon-ball-z-cards"
 import PokemonCards from "src/components/cards/pokemon/pokemon-cards"
 import YuGiOhCards from "src/components/cards/yu-gi-oh/yu-ig-oh-cards"
+import useHeader from "src/hooks/use-header"
+import CreateCardDialog from "../dialogs/create-card/create-card-dialog"
 import WideFormDrawer from "../drawers/wide-form/wide-form"
 
 const TabsAlternate = styled(Tabs)(({ theme }) => ({
@@ -95,6 +100,8 @@ export default function AlternateTabs() {
   const smUp = useMediaQuery(theme.breakpoints.up("sm"))
   const [value, setValue] = useState(0)
 
+  const { dialogOpen, toggleDialog } = useHeader()
+
   // need event even if not used or component does not work
   const handleTabChange = (_event: SyntheticEvent, newValue: number) => setValue(newValue)
   const handleSelectChange = (event: SelectChangeEvent<number>) => setValue(Number(event.target.value))
@@ -119,7 +126,14 @@ export default function AlternateTabs() {
         <Box display="flex" minWidth={1} justifyContent="space-around">
           <CardHeader title="My Cards" sx={{ color: "primary.main" }} />
           <Box>
-            <WideFormDrawer />
+            <Box display="flex" justifyContent="center" alignItems="center">
+              <Typography variant="body2">Add Card</Typography>
+              <IconButton onClick={toggleDialog}>
+                <CreditCardIcon />
+              </IconButton>
+            </Box>
+            {/* <WideFormDrawer /> */}
+            <CreateCardDialog dialogOpen={dialogOpen} toggleDialog={toggleDialog} />
           </Box>
         </Box>
         <Divider />
@@ -154,26 +168,29 @@ export default function AlternateTabs() {
         />
         <Divider />
 
-        {/* Tab 1 Yu-Gi-Oh Cards */}
-        <CustomTabPanel value={value} index={0}>
-          <Stack spacing={2}>
-            <YuGiOhCards />
-          </Stack>
-        </CustomTabPanel>
+        {/* Cards  */}
+        <>
+          {/* Tab 1 Yu-Gi-Oh Cards */}
+          <CustomTabPanel value={value} index={0}>
+            <Stack spacing={2}>
+              <YuGiOhCards />
+            </Stack>
+          </CustomTabPanel>
 
-        {/* Tab 2  Pokemon Cards */}
-        <CustomTabPanel value={value} index={1}>
-          <Stack spacing={2}>
-            <PokemonCards />
-          </Stack>
-        </CustomTabPanel>
+          {/* Tab 2  Pokemon Cards */}
+          <CustomTabPanel value={value} index={1}>
+            <Stack spacing={2}>
+              <PokemonCards />
+            </Stack>
+          </CustomTabPanel>
 
-        {/* Tab Dragon Ball Z Cards */}
-        <CustomTabPanel value={value} index={2}>
-          <Stack spacing={2}>
-            <DragonBallZCards />
-          </Stack>
-        </CustomTabPanel>
+          {/* Tab Dragon Ball Z Cards */}
+          <CustomTabPanel value={value} index={2}>
+            <Stack spacing={2}>
+              <DragonBallZCards />
+            </Stack>
+          </CustomTabPanel>
+        </>
       </Card>
     </Stack>
   )
