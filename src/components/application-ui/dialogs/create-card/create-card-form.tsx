@@ -92,14 +92,8 @@ export default function CreateCard(props: CreateCardProps) {
     resetFormFields(defaultValuesCreateCardRequest(game))
   }, [game, resetFormFields])
 
-  type NestedConditionalType<T> = {
-    [K in keyof T]: T[K]
-  } & {}
-
   const handleSubmit: SubmitHandler<CreateCardRequest> = useCallback(
-    // TODO: figure out why cardData is not giving me all the fields, i know its extending the other types
     async (cardData: CreateCardRequest): Promise<void> => {
-      // TODO: should this just be done on the backend? the validation using safeParse
       const {
         data: validatedRequestBody,
         success: validationSuccessfulForRequestBody,
@@ -108,8 +102,8 @@ export default function CreateCard(props: CreateCardProps) {
 
       if (!validationSuccessfulForRequestBody) {
         // eslint-disable-next-line no-console
-        toast.error(t("Failed To Add Card, Invalid Form Data")) // Show an error toast message
         console.error(validationError.errors)
+        toast.error(t("Failed To Add Card, Invalid Form Data")) // Show an error toast message
         return
       }
 
@@ -125,7 +119,7 @@ export default function CreateCard(props: CreateCardProps) {
   )
 
   // get the text fields from the initial form state, leave out the game field, needs to be a select field
-  const inputFields = Object.keys(defaultValuesCreateCardRequest(game))
+  const inputFields = Object.keys(defaultValuesCreateCardRequest(game)).filter((field) => field !== "game")
 
   return (
     <form
