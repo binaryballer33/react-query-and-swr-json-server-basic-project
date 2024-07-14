@@ -104,12 +104,6 @@
       "name": "Blastoise",
       "type": "Water",
       "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/9.png"
-    },
-    {
-      "name": "Shaquille Rashad Mandy",
-      "img": "https://static.wikia.nocookie.net/yugioh/images/a/ae/DarkMagician-STAX-EN-C-1E.png",
-      "type": "normal",
-      "id": 10
     }
   ],
   "dragon-ball-z": [

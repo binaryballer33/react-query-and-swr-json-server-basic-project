@@ -23,6 +23,7 @@ function makeQueryClient() {
   })
 }
 
+// use hook useQueryClient to get the query client instance for client components
 let browserQueryClient: QueryClient | undefined
 
 function getQueryClient() {

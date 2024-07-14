@@ -37,54 +37,34 @@ export default function CreateCard(props: CreateCardProps) {
   const [game, setGame] = useState(GAME.YU_GI_OH)
 
   function useGetCardMutation(game: GAME) {
-    const {
-      data: yugiohCards,
-      isPending: yugiohIsPending,
-      isSuccess: yugiohIsSuccess,
-      isError: yugiohIsError,
-      mutate: createYugiohCard,
-    } = useCreateYuGiOhCardMutation()
-
-    const {
-      data: pokemonCards,
-      isPending: pokemonIsPending,
-      isSuccess: pokemonhIsSuccess,
-      isError: pokemonIsError,
-      mutate: createPokemonCard,
-    } = useCreatePokemonCardMutation()
-
-    const {
-      data: dragonBallZCards,
-      isPending: dragonBallZIsPending,
-      isSuccess: dragonBallZIsSuccess,
-      isError: dragonBallZIsError,
-      mutate: createDragonBallZCard,
-    } = useCreateDragonBallZCardMutation()
+    const yugiohMutation = useCreateYuGiOhCardMutation()
+    const pokemonMutation = useCreatePokemonCardMutation()
+    const dragonBallZMutation = useCreateDragonBallZCardMutation()
 
     switch (game) {
       case GAME.YU_GI_OH:
         return {
-          data: yugiohCards,
-          isPending: yugiohIsPending,
-          isSuccess: yugiohIsSuccess,
-          isError: yugiohIsError,
-          mutate: createYugiohCard,
+          data: yugiohMutation.data,
+          isPending: yugiohMutation.isPending,
+          isSuccess: yugiohMutation.isSuccess,
+          isError: yugiohMutation.isError,
+          mutate: (card: CreateCardRequest) => yugiohMutation.mutate(card as YuGiOhCardWithoutId),
         }
       case GAME.POKEMON:
         return {
-          data: pokemonCards,
-          isPending: pokemonIsPending,
-          isSuccess: pokemonhIsSuccess,
-          isError: pokemonIsError,
-          mutate: createPokemonCard,
+          data: pokemonMutation.data,
+          isPending: pokemonMutation.isPending,
+          isSuccess: pokemonMutation.isSuccess,
+          isError: pokemonMutation.isError,
+          mutate: (card: CreateCardRequest) => pokemonMutation.mutate(card as PokemonCardWithoutId),
         }
       case GAME.DRAGON_BALL_Z:
         return {
-          data: dragonBallZCards,
-          isPending: dragonBallZIsPending,
-          isSuccess: dragonBallZIsSuccess,
-          isError: dragonBallZIsError,
-          mutate: createDragonBallZCard,
+          data: dragonBallZMutation.data,
+          isPending: dragonBallZMutation.isPending,
+          isSuccess: dragonBallZMutation.isSuccess,
+          isError: dragonBallZMutation.isError,
+          mutate: (card: CreateCardRequest) => dragonBallZMutation.mutate(card as DragonBallZCardWithoutId),
         }
       default:
         throw new Error("Unknown game type")
@@ -112,24 +92,30 @@ export default function CreateCard(props: CreateCardProps) {
     resetFormFields(defaultValuesCreateCardRequest(game))
   }, [game, resetFormFields])
 
-  const handleSubmit: SubmitHandler<CreateCardRequest> = useCallback(
-    async (cardData: CreateCardRequest): Promise<void> => {
-      const validatedCardData = createCardRequestSchema.safeParse(cardData)
-      validatedCardData
+  type NestedConditionalType<T> = {
+    [K in keyof T]: T[K]
+  } & {}
 
-      if (!validatedCardData.success) {
+  const handleSubmit: SubmitHandler<CreateCardRequest> = useCallback(
+    // TODO: figure out why cardData is not giving me all the fields, i know its extending the other types
+    async (cardData: CreateCardRequest): Promise<void> => {
+      // TODO: should this just be done on the backend? the validation using safeParse
+      const {
+        data: validatedRequestBody,
+        success: validationSuccessfulForRequestBody,
+        error: validationError,
+      } = createCardRequestSchema.safeParse(cardData)
+
+      if (!validationSuccessfulForRequestBody) {
         // eslint-disable-next-line no-console
-        console.error(validatedCardData.error.errors)
+        toast.error(t("Failed To Add Card, Invalid Form Data")) // Show an error toast message
+        console.error(validationError.errors)
         return
       }
 
-      // needs to be a intersection of all card types to be able to pass the data to the mutation
-      // if i try to pass a union of all card types, it will work but give a type error
-      type CreateCardMutation = YuGiOhCardWithoutId & PokemonCardWithoutId & DragonBallZCardWithoutId
+      createCardMutation(validatedRequestBody)
 
-      createCardMutation(validatedCardData.data as CreateCardMutation)
-
-      toast.success(t("Card Created")) // Show a success toast message
+      toast.success(t("Card Added To Database")) // Show a success toast message
 
       resetFormFields(defaultValuesCreateCardRequest(game))
 
@@ -171,6 +157,7 @@ export default function CreateCard(props: CreateCardProps) {
               </MenuItem>
             </Select>
 
+            {/* Create Input Fields */}
             {inputFields.map((inputName) => {
               return (
                 <CreateCardInput
@@ -188,7 +175,7 @@ export default function CreateCard(props: CreateCardProps) {
             {/* Submit Button */}
             <Grid xs={12}>
               <Button disabled={isPending} variant="contained" type="submit" size="large" fullWidth>
-                {isPending ? t("Creating") : t("Create")}
+                {isPending ? t("Adding Card") : t("Add Card")}
               </Button>
             </Grid>
 
