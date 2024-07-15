@@ -15,7 +15,7 @@ import { useTranslation } from "react-i18next"
 import { CreateCardRequest } from "src/model/cards/card"
 import GAME from "src/model/cards/game"
 
-type CreateCardInputProps = {
+type EditCardInputProps = {
   register: UseFormRegister<CreateCardRequest>
   errors: FieldErrors<Omit<CreateCardRequest, GAME>>
   watchFormField: UseFormWatch<CreateCardRequest>
@@ -24,7 +24,7 @@ type CreateCardInputProps = {
   placeholder: string
 }
 
-export default function CreateCardInput(props: CreateCardInputProps) {
+export default function EditCardInput(props: EditCardInputProps) {
   const { register, watchFormField, setFormValue, errors, inputName, placeholder } = props
   const { t } = useTranslation()
 

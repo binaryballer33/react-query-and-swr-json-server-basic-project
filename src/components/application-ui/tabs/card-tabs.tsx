@@ -118,6 +118,7 @@ export default function CardTabs() {
           width: "100%",
         }}
       >
+        {/* Add Card Dialog  */}
         <Box display="flex" minWidth={1} justifyContent="space-around">
           <CardHeader title="My Cards" sx={{ color: "primary.main" }} />
           <Box>
@@ -127,11 +128,12 @@ export default function CardTabs() {
                 <CreditCardIcon />
               </IconButton>
             </Box>
-            {/* <WideFormDrawer /> */}
             <CreateCardDialog dialogOpen={dialogOpen} toggleDialog={toggleDialog} />
           </Box>
         </Box>
         <Divider />
+
+        {/* Tabs */}
         <CardHeader
           sx={{
             ".MuiCardHeader-content": {

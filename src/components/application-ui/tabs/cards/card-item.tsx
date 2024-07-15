@@ -8,11 +8,13 @@ import useDeletePokemonCardMutation from "src/api/pokemon/mutations/delete-pokem
 import useUpdatePokemonCardMutation from "src/api/pokemon/mutations/update-pokemon-card"
 import useDeleteYuGiOhCardMutation from "src/api/yu-gi-oh/mutations/delete-yugioh-card"
 import useUpdateYuGiOhCardMutation from "src/api/yu-gi-oh/mutations/update-yugioh-card"
+import useHeader from "src/hooks/use-header"
 import { DeleteOrUpdateCardRequest } from "src/model/cards/card" // Import the union type
 import { DragonBallZCard } from "src/model/cards/dragon-ball-z"
 import GAME from "src/model/cards/game"
 import { PokemonCard } from "src/model/cards/pokemon"
 import { YuGiOhCard } from "src/model/cards/yu-gi-oh"
+import EditCardDialog from "../../dialogs/edit-card/edit-card-dialog"
 
 type CardItemProps = {
   card: DeleteOrUpdateCardRequest
@@ -22,17 +24,7 @@ export default function CardItem({ card }: CardItemProps) {
   const deleteYuGiOhCardMutation = useDeleteYuGiOhCardMutation()
   const deletePokemonCardMutation = useDeletePokemonCardMutation()
   const deleteDragonBallZCardMutation = useDeleteDragonBallZCardMutation()
-
-  const updateYuGiOhCardMutation = useUpdateYuGiOhCardMutation()
-  const updatePokemonCardMutation = useUpdatePokemonCardMutation()
-  const updateDragonBallZCardMutation = useUpdateDragonBallZCardMutation()
-
-  // when the user clicks the edit button a dialog will open with the card data for editing
-  const handleEditCard = (card: DeleteOrUpdateCardRequest) => {
-    if (card.game === GAME.YU_GI_OH) updateYuGiOhCardMutation.mutate(card as YuGiOhCard)
-    if (card.game === GAME.POKEMON) updatePokemonCardMutation.mutate(card as PokemonCard)
-    if (card.game === GAME.DRAGON_BALL_Z) updateDragonBallZCardMutation.mutate(card as DragonBallZCard)
-  }
+  const { dialogOpen, toggleDialog } = useHeader()
 
   const handleDeleteCard = (card: DeleteOrUpdateCardRequest) => {
     if (card.game === GAME.YU_GI_OH) deleteYuGiOhCardMutation.mutate(card as YuGiOhCard)
@@ -42,7 +34,7 @@ export default function CardItem({ card }: CardItemProps) {
 
   return (
     <Grid sx={{ background: (theme) => theme.palette.background.paper, border: 1 }}>
-      <Image src={card.img} alt={card.name} width={320} height={320} />
+      <Image src={card.img} alt={card.name} width={320} height={320} priority />
       <Divider sx={{ border: 1 }} />
       <Box p={2}>
         <h2>Id: {card.id}</h2>
@@ -63,9 +55,12 @@ export default function CardItem({ card }: CardItemProps) {
         )}
       </Box>
       <Box display="flex" justifyContent="space-evenly" py={2}>
-        <IconButton aria-label="Edit Card" color="success" onClick={() => handleEditCard(card)}>
+        <IconButton aria-label="Edit Card" color="success" onClick={toggleDialog}>
           <EditIcon />
         </IconButton>
+
+        {/* Edit Card Modal Dialog */}
+        <EditCardDialog dialogOpen={dialogOpen} toggleDialog={toggleDialog} card={card} />
         <IconButton aria-label="Delete Card" color="error" onClick={() => handleDeleteCard(card)}>
           <DeleteIcon />
         </IconButton>
