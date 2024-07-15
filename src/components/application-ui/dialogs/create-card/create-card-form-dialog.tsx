@@ -4,13 +4,17 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import {
   Alert,
   Button,
+  Card,
   Container,
+  Dialog,
   Unstable_Grid2 as Grid,
   MenuItem,
   Select,
   SelectChangeEvent,
   Stack,
+  Theme,
   Typography,
+  useMediaQuery,
 } from "@mui/material"
 import { useCallback, useEffect, useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
@@ -27,14 +31,16 @@ import { YuGiOhCardWithoutId } from "src/model/cards/yu-gi-oh"
 import CreateCardInput from "./create-card-form-input"
 
 type CreateCardProps = {
-  closeDialog: () => void
+  toggleDialog: () => void
+  dialogOpen: boolean
 }
 
-export default function CreateCard(props: CreateCardProps) {
-  const { closeDialog } = props
+export default function CreateCardFormDialog(props: CreateCardProps) {
+  const { toggleDialog, dialogOpen } = props
   const { t } = useTranslation()
   const [value, setValue] = useState(0)
   const [game, setGame] = useState(GAME.YU_GI_OH)
+  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down("xs"))
 
   function useCreateCardMutation(game: GAME) {
     const yugiohMutation = useCreateYuGiOhCardMutation()
@@ -113,77 +119,81 @@ export default function CreateCard(props: CreateCardProps) {
 
       resetFormFields(defaultValuesCreateCardRequest(game))
 
-      closeDialog() // Close the dialog
+      toggleDialog() // Close the dialog
     },
-    [resetFormFields, closeDialog, t, createCardMutation, game],
+    [resetFormFields, toggleDialog, t, createCardMutation, game],
   )
 
   // get the text fields from the initial form state, leave out the game field, needs to be a select field
   const inputFields = Object.keys(defaultValuesCreateCardRequest(game)).filter((field) => field !== "game")
 
   return (
-    <form
-      onSubmit={handleSubmitHookForm(handleSubmit)}
-      style={{ display: "flex", flexDirection: "column", minHeight: "75dvh", padding: "64px 0px" }}
-    >
-      {/* Form Header */}
-      <Container maxWidth="sm">
-        <Typography align="center" variant="h4" gutterBottom>
-          {t("Add Card To Database")}
-        </Typography>
-      </Container>
+    <Dialog scroll="body" open={dialogOpen} fullWidth={isMobile} onClose={toggleDialog}>
+      <Card sx={{ minWidth: "50%", padding: "2rem 3rem" }}>
+        <form
+          onSubmit={handleSubmitHookForm(handleSubmit)}
+          style={{ display: "flex", flexDirection: "column", minHeight: "75dvh", padding: "64px 0px" }}
+        >
+          {/* Form Header */}
+          <Container maxWidth="sm">
+            <Typography align="center" variant="h4" gutterBottom>
+              {t("Add Card To Database")}
+            </Typography>
+          </Container>
 
-      {/* Form Content */}
-      <Stack mt={{ xs: 2, sm: 3 }} justifyContent="center" alignItems="center" spacing={{ xs: 2, sm: 3 }}>
-        {/* Form Inputs Below */}
-        <Container maxWidth="sm">
-          <Grid container spacing={2}>
-            {/* Select Game Type From Dropdown */}
-            <Select value={value} onChange={handleSelectChange} fullWidth>
-              <MenuItem value={0} onClick={() => setGame(GAME.YU_GI_OH)}>
-                Yu-Gi-Oh
-              </MenuItem>
-              <MenuItem value={1} onClick={() => setGame(GAME.POKEMON)}>
-                Pokemon
-              </MenuItem>
-              <MenuItem value={2} onClick={() => setGame(GAME.DRAGON_BALL_Z)}>
-                Dragon Ball Z
-              </MenuItem>
-            </Select>
+          {/* Form Content */}
+          <Stack mt={{ xs: 2, sm: 3 }} justifyContent="center" alignItems="center" spacing={{ xs: 2, sm: 3 }}>
+            {/* Form Inputs Below */}
+            <Container maxWidth="sm">
+              <Grid container spacing={2}>
+                {/* Select Game Type From Dropdown */}
+                <Select value={value} onChange={handleSelectChange} fullWidth>
+                  <MenuItem value={0} onClick={() => setGame(GAME.YU_GI_OH)}>
+                    Yu-Gi-Oh
+                  </MenuItem>
+                  <MenuItem value={1} onClick={() => setGame(GAME.POKEMON)}>
+                    Pokemon
+                  </MenuItem>
+                  <MenuItem value={2} onClick={() => setGame(GAME.DRAGON_BALL_Z)}>
+                    Dragon Ball Z
+                  </MenuItem>
+                </Select>
 
-            {/* Create Input Fields */}
-            {inputFields.map((inputName) => {
-              return (
-                <CreateCardInput
-                  key={inputName}
-                  register={registerInputField}
-                  errors={errors}
-                  inputName={inputName as keyof CreateCardRequest}
-                  placeholder={inputName}
-                  watchFormField={watchFormField}
-                  setFormValue={setFormValue}
-                />
-              )
-            })}
+                {/* Create Input Fields */}
+                {inputFields.map((inputName) => {
+                  return (
+                    <CreateCardInput
+                      key={inputName}
+                      register={registerInputField}
+                      errors={errors}
+                      inputName={inputName as keyof CreateCardRequest}
+                      placeholder={inputName}
+                      watchFormField={watchFormField}
+                      setFormValue={setFormValue}
+                    />
+                  )
+                })}
 
-            {/* Submit Button */}
-            <Grid xs={12}>
-              <Button disabled={isPending} variant="contained" type="submit" size="large" fullWidth>
-                {isPending ? t("Adding Card") : t("Add Card")}
-              </Button>
-            </Grid>
+                {/* Submit Button */}
+                <Grid xs={12}>
+                  <Button disabled={isPending} variant="contained" type="submit" size="large" fullWidth>
+                    {isPending ? t("Adding Card") : t("Add Card")}
+                  </Button>
+                </Grid>
 
-            {/* Error Alert */}
-            {errors.root && (
-              <Grid xs={12}>
-                <Alert variant="outlined" severity="error">
-                  {t(errors.root.message as string)}
-                </Alert>
+                {/* Error Alert */}
+                {errors.root && (
+                  <Grid xs={12}>
+                    <Alert variant="outlined" severity="error">
+                      {t(errors.root.message as string)}
+                    </Alert>
+                  </Grid>
+                )}
               </Grid>
-            )}
-          </Grid>
-        </Container>
-      </Stack>
-    </form>
+            </Container>
+          </Stack>
+        </form>
+      </Card>
+    </Dialog>
   )
 }

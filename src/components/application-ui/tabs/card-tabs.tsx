@@ -23,7 +23,9 @@ import DragonBallZCards from "src/components/application-ui/tabs/cards/dragon-ba
 import PokemonCards from "src/components/application-ui/tabs/cards/pokemon/pokemon-cards"
 import YuGiOhCards from "src/components/application-ui/tabs/cards/yu-gi-oh/yu-ig-oh-cards"
 import useHeader from "src/hooks/use-header"
-import CreateCardDialog from "../dialogs/create-card/create-card-dialog"
+import CreateCardFormDialog from "../dialogs/create-card/create-card-form-dialog"
+
+// import CreateCardDialog from "../dialogs/create-card/create-card-dialog"
 
 const TabsAlternate = styled(Tabs)(({ theme }) => ({
   overflow: "visible",
@@ -128,7 +130,8 @@ export default function CardTabs() {
                 <CreditCardIcon />
               </IconButton>
             </Box>
-            <CreateCardDialog dialogOpen={dialogOpen} toggleDialog={toggleDialog} />
+            {/* <CreateCardDialog dialogOpen={dialogOpen} toggleDialog={toggleDialog} /> */}
+            <CreateCardFormDialog dialogOpen={dialogOpen} toggleDialog={toggleDialog} />
           </Box>
         </Box>
         <Divider />
