@@ -38,7 +38,7 @@ export const defaultValuesCreateCardRequest = (game: GAME): CreateCardRequest =>
         game: GAME.POKEMON,
         name: "",
         img: "",
-        type: "normal",
+        type: "Normal",
       } satisfies PokemonCardWithoutId
     case GAME.DRAGON_BALL_Z:
       return {

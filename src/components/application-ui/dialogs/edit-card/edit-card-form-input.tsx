@@ -12,15 +12,15 @@ import {
 } from "@mui/material"
 import { FieldErrors, UseFormRegister, UseFormSetValue, UseFormWatch } from "react-hook-form"
 import { useTranslation } from "react-i18next"
-import { CreateCardRequest } from "src/model/cards/card"
+import { DeleteOrUpdateCardRequest } from "src/model/cards/card"
 import GAME from "src/model/cards/game"
 
 type EditCardInputProps = {
-  register: UseFormRegister<CreateCardRequest>
-  errors: FieldErrors<Omit<CreateCardRequest, GAME>>
-  watchFormField: UseFormWatch<CreateCardRequest>
-  setFormValue: UseFormSetValue<CreateCardRequest>
-  inputName: keyof CreateCardRequest // must be lowercase
+  register: UseFormRegister<DeleteOrUpdateCardRequest>
+  errors: FieldErrors<Omit<DeleteOrUpdateCardRequest, GAME>>
+  watchFormField: UseFormWatch<DeleteOrUpdateCardRequest>
+  setFormValue: UseFormSetValue<DeleteOrUpdateCardRequest>
+  inputName: keyof DeleteOrUpdateCardRequest // must be lowercase
   placeholder: string
 }
 
@@ -53,11 +53,11 @@ export default function EditCardInput(props: EditCardInputProps) {
           required
           endAdornment={
             // only show clear icon if textfield is not empty
-            watchFormField(inputName as keyof CreateCardRequest) !== "" && (
+            watchFormField(inputName as keyof DeleteOrUpdateCardRequest) !== "" && (
               <InputAdornment position="end">
                 <Tooltip title={`clear ${inputName}`}>
                   {/* reset the input field */}
-                  <IconButton onClick={() => setFormValue(inputName as keyof CreateCardRequest, "")}>
+                  <IconButton onClick={() => setFormValue(inputName as keyof DeleteOrUpdateCardRequest, "")}>
                     <ClearIcon color="secondary" />
                   </IconButton>
                 </Tooltip>
