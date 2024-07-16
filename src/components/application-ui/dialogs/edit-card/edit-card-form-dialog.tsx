@@ -18,7 +18,6 @@ import {
 } from "@mui/material"
 import { useCallback } from "react"
 import { Controller, SubmitHandler, useForm } from "react-hook-form"
-import toast from "react-hot-toast"
 import { useTranslation } from "react-i18next"
 import useUpdateDragonBallZCardMutation from "src/api/dragon-ball-z/mutations/update-dragon-ball-z-card"
 import useUpdatePokemonCardMutation from "src/api/pokemon/mutations/update-pokemon-card"
@@ -101,17 +100,14 @@ export default function EditCardDialog(props: EditCardProps) {
       if (!validationSuccessfulForRequestBody) {
         // eslint-disable-next-line no-console
         console.error(validationError.errors)
-        toast.error(t("Failed To Update Card, Invalid Form Data")) // Show an error toast message
         return
       }
 
       updateCardMutation(validatedRequestBody)
 
-      toast.success(t(`Successfully Updated: ${card.name}`)) // Show a success toast message
-
       toggleDialog() // Close the dialog
     },
-    [t, card, toggleDialog, updateCardMutation],
+    [toggleDialog, updateCardMutation],
   )
 
   // get the text fields from the card, but leave out a few fields

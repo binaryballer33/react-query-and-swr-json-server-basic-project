@@ -2,7 +2,6 @@ import DeleteIcon from "@mui/icons-material/Delete"
 import EditIcon from "@mui/icons-material/Edit"
 import { Box, Divider, Unstable_Grid2 as Grid, IconButton } from "@mui/material"
 import Image from "next/image"
-import toast from "react-hot-toast"
 import useDeleteDragonBallZCardMutation from "src/api/dragon-ball-z/mutations/delete-dragon-ball-z-card"
 import useDeletePokemonCardMutation from "src/api/pokemon/mutations/delete-pokemon-card"
 import useDeleteYuGiOhCardMutation from "src/api/yu-gi-oh/mutations/delete-yugioh-card"
@@ -28,8 +27,6 @@ export default function CardItem({ card }: CardItemProps) {
     if (card.game === GAME.YU_GI_OH) deleteYuGiOhCardMutation.mutate(card as YuGiOhCard)
     if (card.game === GAME.POKEMON) deletePokemonCardMutation.mutate(card as PokemonCard)
     if (card.game === GAME.DRAGON_BALL_Z) deleteDragonBallZCardMutation.mutate(card as DragonBallZCard)
-
-    toast.success(`Card ${card.name} Deleted Successfully`)
   }
 
   return (

@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import { useMutation, useQueryClient } from "@tanstack/react-query"
+import toast from "react-hot-toast"
 import QUERY_KEYS from "src/api/query-keys"
 import { PokemonCard } from "src/model/cards/pokemon"
 import QUERY_ROUTES from "src/router/query-routes"
@@ -15,15 +16,22 @@ export default function useDeletePokemonCardMutation() {
   return useMutation<PokemonCard, Error, PokemonCard>({
     mutationFn: (card: PokemonCard) => deletePokemonCard(card.id),
 
-    onMutate(variables) {},
-
-    onError(error, variables, context) {
-      console.error(`Error Deleting Pokemon Card: ${error}`)
+    onMutate(card) {
+      toast.loading(`Attempting To Delete Pokemon Card: ${card.name}`, {
+        duration: 500,
+      })
     },
 
-    onSuccess(data, variables, context) {},
+    onError(error, card, context) {
+      console.error(`Error Deleting Pokemon Card: ${error}`)
+      toast.error(`Error Deleting Pokemon Card ${card.name}: ${error}`)
+    },
 
-    onSettled(data, error, variables, context) {
+    onSuccess(data, card, context) {
+      toast.success(`Successfully Deleted Pokemon Card: ${card.name}`)
+    },
+
+    onSettled(data, error, card, context) {
       queryClient.invalidateQueries({ queryKey: QUERY_KEYS.ALL_POKEMON_CARDS })
       queryClient.invalidateQueries({ queryKey: QUERY_KEYS.POKEMON_CARD_BY_ID(data!.id) })
     },

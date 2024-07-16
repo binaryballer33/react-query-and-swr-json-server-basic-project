@@ -18,7 +18,6 @@ import {
 } from "@mui/material"
 import { useCallback, useEffect, useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
-import toast from "react-hot-toast"
 import { useTranslation } from "react-i18next"
 import useCreateDragonBallZCardMutation from "src/api/dragon-ball-z/mutations/create-dragon-ball-z-card"
 import useCreatePokemonCardMutation from "src/api/pokemon/mutations/create-pokemon-card"
@@ -27,7 +26,7 @@ import { CreateCardRequest, createCardRequestSchema, defaultValuesCreateCardRequ
 import { DragonBallZCardWithoutId } from "src/model/cards/dragon-ball-z"
 import GAME from "src/model/cards/game"
 import { PokemonCardWithoutId } from "src/model/cards/pokemon"
-import { YuGiOhCardWithoutId } from "src/model/cards/yu-gi-oh"
+import { YuGiOhCard } from "src/model/cards/yu-gi-oh"
 import CreateCardInput from "./create-card-form-input"
 
 type CreateCardProps = {
@@ -54,7 +53,7 @@ export default function CreateCardFormDialog(props: CreateCardProps) {
           isPending: yugiohMutation.isPending,
           isSuccess: yugiohMutation.isSuccess,
           isError: yugiohMutation.isError,
-          mutate: (card: CreateCardRequest) => yugiohMutation.mutate(card as YuGiOhCardWithoutId),
+          mutate: (card: CreateCardRequest) => yugiohMutation.mutate(card as YuGiOhCard),
         }
       case GAME.POKEMON:
         return {
@@ -109,19 +108,16 @@ export default function CreateCardFormDialog(props: CreateCardProps) {
       if (!validationSuccessfulForRequestBody) {
         // eslint-disable-next-line no-console
         console.error(validationError.errors)
-        toast.error(t("Failed To Add Card, Invalid Form Data")) // Show an error toast message
         return
       }
 
       createCardMutation(validatedRequestBody)
 
-      toast.success(t("Card Added To Database")) // Show a success toast message
-
       resetFormFields(defaultValuesCreateCardRequest(game))
 
       toggleDialog() // Close the dialog
     },
-    [resetFormFields, toggleDialog, t, createCardMutation, game],
+    [resetFormFields, toggleDialog, createCardMutation, game],
   )
 
   // get the text fields from the initial form state, leave out the game field, needs to be a select field
