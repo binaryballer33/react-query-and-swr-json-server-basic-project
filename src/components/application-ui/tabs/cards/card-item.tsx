@@ -30,7 +30,7 @@ export default function CardItem({ card }: CardItemProps) {
   }
 
   return (
-    <Grid sx={{ background: (theme) => theme.palette.background.paper, border: 1 }}>
+    <Grid key={card.id} sx={{ background: (theme) => theme.palette.background.paper, border: 1 }}>
       {/* Card Image */}
       <Image src={card.img} alt={card.name} width={320} height={320} priority />
       <Divider sx={{ border: 1 }} />

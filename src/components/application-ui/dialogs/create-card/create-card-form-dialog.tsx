@@ -99,22 +99,8 @@ export default function CreateCardFormDialog(props: CreateCardProps) {
 
   const handleSubmit: SubmitHandler<CreateCardRequest> = useCallback(
     async (cardData: CreateCardRequest): Promise<void> => {
-      const {
-        data: validatedRequestBody,
-        success: validationSuccessfulForRequestBody,
-        error: validationError,
-      } = createCardRequestSchema.safeParse(cardData)
-
-      if (!validationSuccessfulForRequestBody) {
-        // eslint-disable-next-line no-console
-        console.error(validationError.errors)
-        return
-      }
-
-      createCardMutation(validatedRequestBody)
-
+      createCardMutation(cardData)
       resetFormFields(defaultValuesCreateCardRequest(game))
-
       toggleDialog() // Close the dialog
     },
     [resetFormFields, toggleDialog, createCardMutation, game],

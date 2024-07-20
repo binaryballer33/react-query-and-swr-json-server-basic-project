@@ -91,20 +91,7 @@ export default function EditCardDialog(props: EditCardProps) {
 
   const handleSubmit: SubmitHandler<DeleteOrUpdateCardRequest> = useCallback(
     async (cardData: DeleteOrUpdateCardRequest): Promise<void> => {
-      const {
-        data: validatedRequestBody,
-        success: validationSuccessfulForRequestBody,
-        error: validationError,
-      } = deleteOrUpdateCardRequestSchema.safeParse(cardData)
-
-      if (!validationSuccessfulForRequestBody) {
-        // eslint-disable-next-line no-console
-        console.error(validationError.errors)
-        return
-      }
-
-      updateCardMutation(validatedRequestBody)
-
+      updateCardMutation(cardData)
       toggleDialog() // Close the dialog
     },
     [toggleDialog, updateCardMutation],

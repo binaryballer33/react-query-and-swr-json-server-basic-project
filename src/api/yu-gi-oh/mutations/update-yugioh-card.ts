@@ -2,6 +2,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import toast from "react-hot-toast"
 import QUERY_KEYS from "src/api/query-keys"
+import { deleteOrUpdateCardRequestSchema } from "src/model/cards/card"
 import { YuGiOhCard } from "src/model/cards/yu-gi-oh"
 import QUERY_ROUTES from "src/router/query-routes"
 import axiosInstance from "../../xhr-request-instance"
@@ -10,17 +11,20 @@ export async function updateYuGiOhCard(card: YuGiOhCard) {
   return (await axiosInstance.put(QUERY_ROUTES.UPDATE_YUGIOH_CARD_BY_ID(card.id), card)).data
 }
 
-// TODO: should i be doing the zod schema.safeParse validation of the request body here
-// TODO: shaq this is me talking to you, my answer is yes, get that shit out of the damn component, do it in the onMutate
+type MutationContext = {
+  staleCache?: YuGiOhCard[]
+}
+
 // TODO: figure out why i can't use the appropriate QUERY_KEY to update, create and delete the cards
 export default function useUpdateYuGiOhCardMutation() {
   const queryClient = useQueryClient()
 
-  return useMutation<YuGiOhCard, Error, YuGiOhCard>({
-    mutationFn: (card: YuGiOhCard) => updateYuGiOhCard(card),
-
+  return useMutation<YuGiOhCard, Error, YuGiOhCard, MutationContext>({
     // less expensive, does not refetch, uses data in cache
     onMutate: async (card) => {
+      // if there's a validation error, the mutation will not be called and the onError will be called
+      deleteOrUpdateCardRequestSchema.parse(card)
+
       toast.loading(`Atempting To Update Yu-Gi-Oh Card: ${card.name}`, {
         duration: 500,
       })
@@ -29,22 +33,27 @@ export default function useUpdateYuGiOhCardMutation() {
       await queryClient.cancelQueries({ queryKey: QUERY_KEYS.ALL_YU_GI_OH_CARDS })
 
       // get the previous state of the cache before modifying the cache, for rollback on error purposes
-      const oldQueryCacheContext = queryClient.getQueryData(QUERY_KEYS.ALL_YU_GI_OH_CARDS)
+      const staleCache = queryClient.getQueryData<YuGiOhCard[]>(QUERY_KEYS.ALL_YU_GI_OH_CARDS)
 
       // optimistically update the cache to what it should be if there are no errors
-      queryClient.setQueryData(QUERY_KEYS.ALL_YU_GI_OH_CARDS, (old) => (old ? [...old, card] : [card]))
+      queryClient.setQueryData(QUERY_KEYS.ALL_YU_GI_OH_CARDS, (oldCardsCache: YuGiOhCard[]) =>
+        oldCardsCache?.map((oldCard) => (oldCard.id === card.id ? card : oldCard)),
+      )
 
       // return a context object with the previous state of the cache in case we need to rollback in the onError
-      return { oldQueryCacheContext }
+      return { staleCache }
+    },
+
+    mutationFn: (card: YuGiOhCard) => updateYuGiOhCard(card),
+
+    onSuccess(_data, card, _context) {
+      toast.success(`Successfully Updated Yu-Gi-Oh Card: ${card.name} `)
     },
 
     onError(error, card, context) {
       console.error(`Error Updating Yu-Gi-Oh Card: ${error}`)
       toast.error(`Error Updating Yu-Gi-Oh Card ${card.name}: ${error}`)
-    },
-
-    onSuccess(_data, card, _context) {
-      toast.success(`Successfully Updated Yu-Gi-Oh Card: ${card.name} `)
+      queryClient.setQueryData(QUERY_KEYS.ALL_YU_GI_OH_CARDS, context?.staleCache)
     },
 
     // more expensive, refetches anytime this mutation is called
