@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import {
   Alert,
+  Box,
   Button,
   Card,
   Container,
@@ -17,7 +18,7 @@ import {
   useMediaQuery,
 } from "@mui/material"
 import { useCallback, useEffect, useState } from "react"
-import { SubmitHandler, useForm } from "react-hook-form"
+import { Controller, SubmitHandler, useForm } from "react-hook-form"
 import { useTranslation } from "react-i18next"
 import useCreateDragonBallZCardMutation from "src/api/dragon-ball-z/mutations/create-dragon-ball-z-card"
 import useCreatePokemonCardMutation from "src/api/pokemon/mutations/create-pokemon-card"
@@ -25,7 +26,7 @@ import useCreateYuGiOhCardMutation from "src/api/yu-gi-oh/mutations/create-yugio
 import { CreateCardRequest, createCardRequestSchema, defaultValuesCreateCardRequest } from "src/model/cards/card"
 import { DragonBallZCardWithoutId } from "src/model/cards/dragon-ball-z"
 import GAME from "src/model/cards/game"
-import { PokemonCardWithoutId } from "src/model/cards/pokemon"
+import { pokemonCardSchemaWithoutId, PokemonCardWithoutId } from "src/model/cards/pokemon"
 import { YuGiOhCard } from "src/model/cards/yu-gi-oh"
 import CreateCardInput from "./create-card-form-input"
 
@@ -87,6 +88,7 @@ export default function CreateCardFormDialog(props: CreateCardProps) {
     watch: watchFormField,
     setValue: setFormValue,
     formState: { errors },
+    control: controlSelectInputField, // control is passed into the Controller component
   } = useForm<CreateCardRequest>({
     defaultValues: defaultValuesCreateCardRequest(game),
     resolver: zodResolver(createCardRequestSchema),
@@ -107,7 +109,13 @@ export default function CreateCardFormDialog(props: CreateCardProps) {
   )
 
   // get the text fields from the initial form state, leave out the game field, needs to be a select field
-  const inputFields = Object.keys(defaultValuesCreateCardRequest(game)).filter((field) => field !== "game")
+  // const inputFields = Object.keys(defaultValuesCreateCardRequest(game)).filter((field) => field !== "game")
+
+  // get the text fields from the card, but leave out a few fields
+  const inputFields = Object.keys(defaultValuesCreateCardRequest(game)).filter(
+    (field) => !["game", "type"].includes(field),
+  )
+  const pokemonTypes = pokemonCardSchemaWithoutId.shape.type.options.map(String) // get the string[] of pokemon types from the schema
 
   return (
     <Dialog scroll="body" open={dialogOpen} fullWidth={isMobile} onClose={toggleDialog}>
@@ -155,6 +163,37 @@ export default function CreateCardFormDialog(props: CreateCardProps) {
                     />
                   )
                 })}
+
+                {/* Select Pokemon Type From Dropdown */}
+                {game === GAME.POKEMON && (
+                  <Grid xs={12}>
+                    <Box mb="15px" pl={1}>
+                      <Typography variant="h6" component="label">
+                        {t("Type")}
+                      </Typography>
+                    </Box>
+                    {/* Controller Manages Components Like Select and manage their state and validation */}
+                    <Controller
+                      name="type" // name of the field
+                      control={controlSelectInputField} // manages the form's state and validation.
+                      /*
+                       * The render prop is a function that takes an object with a field property.
+                       * This field object contains methods and properties to manage the input's state and events.
+                       * The field object is spread into the Select component using {...field},
+                       * which binds the Select component to the form's state and validation.
+                       */
+                      render={({ field }) => (
+                        <Select {...field} fullWidth>
+                          {pokemonTypes.map((type) => (
+                            <MenuItem key={type} value={type}>
+                              {type}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      )}
+                    />
+                  </Grid>
+                )}
 
                 {/* Submit Button */}
                 <Grid xs={12}>
