@@ -7,6 +7,7 @@ import ReactQueryClientProvider from "src/api/query-client-provider"
 import Toastr from "src/components/base/toastr" // for notification overlays
 import { store, useSelector } from "src/store"
 import { darkTheme, lightTheme } from "src/theme/theme"
+import "src/i18n/i18n" // for multilanguage support
 
 type ThemeProviderProps = {
   children: ReactNode
