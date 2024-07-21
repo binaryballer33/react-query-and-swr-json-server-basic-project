@@ -22,7 +22,7 @@ export default function useDeleteYuGiOhCardMutation() {
     // less expensive, does not refetch, uses data in cache
     onMutate: async (card) => {
       // if there's a validation error, the mutation will not be called and the onError will be called
-      deleteOrUpdateCardRequestSchema.parse(card)
+      const validatedCard = deleteOrUpdateCardRequestSchema.parse(card)
 
       toast.loading(`Attempting To Delete Yu-Gi-Oh Card: ${card.name}`, {
         duration: 500,
@@ -35,8 +35,8 @@ export default function useDeleteYuGiOhCardMutation() {
       const staleCache = queryClient.getQueryData<YuGiOhCard[]>(QUERY_KEYS.ALL_YU_GI_OH_CARDS)
 
       // optimistically update the cache to what it should be if there are no errors
-      queryClient.setQueryData(QUERY_KEYS.ALL_YU_GI_OH_CARDS, (old: YuGiOhCard[]) =>
-        old?.filter((oldCard) => oldCard.id !== card.id),
+      queryClient.setQueryData(QUERY_KEYS.ALL_YU_GI_OH_CARDS, (oldCardsCache: YuGiOhCard[]) =>
+        oldCardsCache?.filter((oldCard) => oldCard.id !== validatedCard.id),
       )
 
       // return a context object with the previous state of the cache in case we need to rollback in the onError
@@ -56,9 +56,9 @@ export default function useDeleteYuGiOhCardMutation() {
     },
 
     // more expensive, refetches anytime this mutation is called
-    onSettled(data, _error, _card, _context) {
-      // queryClient.invalidateQueries({ queryKey: QUERY_KEYS.ALL_YU_GI_OH_CARDS })
-      // queryClient.invalidateQueries({ queryKey: QUERY_KEYS.YU_GI_OH_CARD_BY_ID(data!.id) })
+    onSettled: async (data, _error, _card, _context) => {
+      // await queryClient.invalidateQueries({ queryKey: QUERY_KEYS.ALL_YU_GI_OH_CARDS })
+      // await queryClient.invalidateQueries({ queryKey: QUERY_KEYS.YU_GI_OH_CARD_BY_ID(data!.id) })
     },
   })
 }

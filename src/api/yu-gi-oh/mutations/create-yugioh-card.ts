@@ -17,7 +17,6 @@ export async function createYuGiOhCard(card: YuGiOhCardWithoutId) {
  * and if the cache is not invalidated, if you try to edit or delete that card with its id,
  * you will get an error because the cache doesn't have the id because you didn't refetch the data from the database
  */
-// TODO: now just figure out how to invalidate caches using the correct query key with the id of the card
 export default function useCreateYuGiOhCardMutation() {
   const queryClient = useQueryClient()
 
@@ -42,8 +41,8 @@ export default function useCreateYuGiOhCardMutation() {
       toast.error(`Error Creating Yu-Gi-Oh Card ${card.name}: ${error}`)
     },
 
-    onSettled(_data, _error, _variables, _context) {
-      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.ALL_YU_GI_OH_CARDS })
+    onSettled: async (_data, _error, _variables, _context) => {
+      await queryClient.invalidateQueries({ queryKey: QUERY_KEYS.ALL_YU_GI_OH_CARDS })
     },
   })
 }

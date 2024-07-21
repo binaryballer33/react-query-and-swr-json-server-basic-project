@@ -15,7 +15,6 @@ type MutationContext = {
   staleCache?: YuGiOhCard[]
 }
 
-// TODO: figure out why i can't use the appropriate QUERY_KEY to update, create and delete the cards
 export default function useUpdateYuGiOhCardMutation() {
   const queryClient = useQueryClient()
 
@@ -23,7 +22,7 @@ export default function useUpdateYuGiOhCardMutation() {
     // less expensive, does not refetch, uses data in cache
     onMutate: async (card) => {
       // if there's a validation error, the mutation will not be called and the onError will be called
-      deleteOrUpdateCardRequestSchema.parse(card)
+      const validatedCard = deleteOrUpdateCardRequestSchema.parse(card)
 
       toast.loading(`Atempting To Update Yu-Gi-Oh Card: ${card.name}`, {
         duration: 500,
@@ -37,14 +36,14 @@ export default function useUpdateYuGiOhCardMutation() {
 
       // optimistically update the cache to what it should be if there are no errors
       queryClient.setQueryData(QUERY_KEYS.ALL_YU_GI_OH_CARDS, (oldCardsCache: YuGiOhCard[]) =>
-        oldCardsCache?.map((oldCard) => (oldCard.id === card.id ? card : oldCard)),
+        oldCardsCache?.map((oldCard) => (oldCard.id === validatedCard.id ? validatedCard : oldCard)),
       )
 
       // return a context object with the previous state of the cache in case we need to rollback in the onError
       return { staleCache }
     },
 
-    mutationFn: (card: YuGiOhCard) => updateYuGiOhCard(card),
+    mutationFn: (card) => updateYuGiOhCard(card),
 
     onSuccess(_data, card, _context) {
       toast.success(`Successfully Updated Yu-Gi-Oh Card: ${card.name} `)
@@ -57,9 +56,9 @@ export default function useUpdateYuGiOhCardMutation() {
     },
 
     // more expensive, refetches anytime this mutation is called
-    onSettled(data, error, card, context) {
-      // queryClient.invalidateQueries({ queryKey: QUERY_KEYS.ALL_YU_GI_OH_CARDS })
-      // queryClient.invalidateQuersies({ queryKey: QUERY_KEYS.YU_GI_OH_CARD_BY_ID(data!.id) })
+    onSettled: async (data, error, card, context) => {
+      // await queryClient.invalidateQueries({ queryKey: QUERY_KEYS.ALL_YU_GI_OH_CARDS })
+      // await queryClient.invalidateQuersies({ queryKey: QUERY_KEYS.YU_GI_OH_CARD_BY_ID(data!.id) })
     },
   })
 }
