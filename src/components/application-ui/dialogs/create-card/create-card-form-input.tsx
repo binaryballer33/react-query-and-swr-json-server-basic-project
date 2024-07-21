@@ -24,7 +24,6 @@ type CreateCardInputProps = {
   placeholder: string
 }
 
-// TODO: looks like this is the same as EditCardInput, need to refactor and just make a single component they share
 export default function CreateCardInput(props: CreateCardInputProps) {
   const { register, watchFormField, setFormValue, errors, inputName, placeholder } = props
   const { t } = useTranslation()

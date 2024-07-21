@@ -15,7 +15,6 @@ type MutationContext = {
   staleCache?: PokemonCard[]
 }
 
-// TODO: should i be doing the zod schema.safeParse validation of the request body here
 export default function useUpdatePokemonCardMutation() {
   const queryClient = useQueryClient()
 

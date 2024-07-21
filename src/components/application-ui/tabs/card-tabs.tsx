@@ -84,7 +84,7 @@ function CustomTabPanel(props: TabPanelProps) {
 
   return (
     <div role="tabpanel" hidden={value !== index}>
-      {value === index && <Box sx={{ p: 3, minHeight: 300 }}>{children}</Box>}
+      {value === index && <Box sx={{ p: 3, maxHeight: 700, overflow: "scroll" }}>{children}</Box>}
     </div>
   )
 }
@@ -105,6 +105,7 @@ export default function CardTabs() {
 
   // need event even if not used or component does not work
   const handleTabChange = (_event: SyntheticEvent, newValue: number) => setValue(newValue)
+
   const handleSelectChange = (event: SelectChangeEvent<number>) => setValue(Number(event.target.value))
 
   return (
@@ -130,7 +131,6 @@ export default function CardTabs() {
                 <CreditCardIcon />
               </IconButton>
             </Box>
-            {/* <CreateCardDialog dialogOpen={dialogOpen} toggleDialog={toggleDialog} /> */}
             <CreateCardFormDialog dialogOpen={dialogOpen} toggleDialog={toggleDialog} />
           </Box>
         </Box>
