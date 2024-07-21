@@ -38,10 +38,10 @@ export default function useCreateYuGiOhCardMutation() {
 
     onError(error, card, _context) {
       console.error(`Error Creating Yu-Gi-Oh Card: ${error}`)
-      toast.error(`Error Creating Yu-Gi-Oh Card ${card.name}: ${error}`)
+      toast.error(`Error Creating Yu-Gi-Oh Card ${card.name}`)
     },
 
-    onSettled: async (_data, _error, _variables, _context) => {
+    onSettled: async (_data, _error, _card, _context) => {
       await queryClient.invalidateQueries({ queryKey: QUERY_KEYS.ALL_YU_GI_OH_CARDS })
     },
   })

@@ -51,12 +51,12 @@ export default function useUpdateYuGiOhCardMutation() {
 
     onError(error, card, context) {
       console.error(`Error Updating Yu-Gi-Oh Card: ${error}`)
-      toast.error(`Error Updating Yu-Gi-Oh Card ${card.name}: ${error}`)
+      toast.error(`Error Updating Yu-Gi-Oh Card ${card.name}`)
       queryClient.setQueryData(QUERY_KEYS.ALL_YU_GI_OH_CARDS, context?.staleCache)
     },
 
     // more expensive, refetches anytime this mutation is called
-    onSettled: async (data, error, card, context) => {
+    onSettled: async (data, _error, _card, _context) => {
       // await queryClient.invalidateQueries({ queryKey: QUERY_KEYS.ALL_YU_GI_OH_CARDS })
       // await queryClient.invalidateQuersies({ queryKey: QUERY_KEYS.YU_GI_OH_CARD_BY_ID(data!.id) })
     },

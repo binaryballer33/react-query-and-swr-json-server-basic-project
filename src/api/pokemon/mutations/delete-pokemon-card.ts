@@ -51,7 +51,7 @@ export default function useDeletePokemonCardMutation() {
 
     onError(error, card, context) {
       console.error(`Error Deleting Pokemon Card: ${error}`)
-      toast.error(`Error Deleting Pokemon Card ${card.name}: ${error}`)
+      toast.error(`Error Deleting Pokemon Card ${card.name}`)
       queryClient.setQueryData(QUERY_KEYS.ALL_POKEMON_CARDS, context?.staleCache)
     },
 
