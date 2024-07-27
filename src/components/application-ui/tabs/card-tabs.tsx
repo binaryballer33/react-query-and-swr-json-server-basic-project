@@ -21,11 +21,10 @@ import {
 import { ReactNode, SyntheticEvent, useState } from "react"
 import DragonBallZCards from "src/components/application-ui/tabs/cards/dragon-ball-z/dragon-ball-z-cards"
 import PokemonCards from "src/components/application-ui/tabs/cards/pokemon/pokemon-cards"
+import PokemonCardsPaginated from "src/components/application-ui/tabs/cards/pokemon/pokemon-cards-paginated"
 import YuGiOhCards from "src/components/application-ui/tabs/cards/yu-gi-oh/yu-ig-oh-cards"
 import useHeader from "src/hooks/use-header"
 import CreateCardFormDialog from "../dialogs/create-card/create-card-form-dialog"
-
-// import CreateCardDialog from "../dialogs/create-card/create-card-dialog"
 
 const TabsAlternate = styled(Tabs)(({ theme }) => ({
   overflow: "visible",
@@ -99,7 +98,7 @@ function a11yProps(index: number) {
 export default function CardTabs() {
   const theme = useTheme()
   const smUp = useMediaQuery(theme.breakpoints.up("sm"))
-  const [value, setValue] = useState(0)
+  const [value, setValue] = useState(2)
 
   const { dialogOpen, toggleDialog } = useHeader()
 
@@ -134,6 +133,7 @@ export default function CardTabs() {
             <CreateCardFormDialog dialogOpen={dialogOpen} toggleDialog={toggleDialog} />
           </Box>
         </Box>
+
         <Divider />
 
         {/* Tabs */}
@@ -154,14 +154,16 @@ export default function CardTabs() {
                 indicatorColor="secondary"
               >
                 <Tab label="Yu-Gi-Oh" {...a11yProps(0)} />
-                <Tab label="Pokemon" {...a11yProps(1)} />
-                <Tab label="Dragon Ball Z" {...a11yProps(2)} />
+                <Tab label="Dragon Ball Z" {...a11yProps(1)} />
+                <Tab label="Pokemon" {...a11yProps(2)} />
+                <Tab label="Pokemon Paginated" {...a11yProps(3)} />
               </TabsAlternate>
             ) : (
               <Select value={value} onChange={handleSelectChange} fullWidth>
                 <MenuItem value={0}>Yu-Gi-Oh</MenuItem>
-                <MenuItem value={1}>Pokemon</MenuItem>
-                <MenuItem value={2}>Dragon Ball Z</MenuItem>
+                <MenuItem value={1}>Dragon Ball Z</MenuItem>
+                <MenuItem value={2}>Pokemon</MenuItem>
+                <MenuItem value={3}>Pokemon Paginated</MenuItem>
               </Select>
             )
           }
@@ -177,17 +179,24 @@ export default function CardTabs() {
             </Stack>
           </CustomTabPanel>
 
-          {/* Tab 2  Pokemon Cards */}
+          {/* Tab 2 Dragon Ball Z Cards */}
           <CustomTabPanel value={value} index={1}>
+            <Stack spacing={2}>
+              <DragonBallZCards />
+            </Stack>
+          </CustomTabPanel>
+
+          {/* Tab 3  Pokemon Cards */}
+          <CustomTabPanel value={value} index={2}>
             <Stack spacing={2}>
               <PokemonCards />
             </Stack>
           </CustomTabPanel>
 
-          {/* Tab Dragon Ball Z Cards */}
-          <CustomTabPanel value={value} index={2}>
+          {/* Tab 4 Pokemon Cards Paginated */}
+          <CustomTabPanel value={value} index={3}>
             <Stack spacing={2}>
-              <DragonBallZCards />
+              <PokemonCardsPaginated />
             </Stack>
           </CustomTabPanel>
         </>

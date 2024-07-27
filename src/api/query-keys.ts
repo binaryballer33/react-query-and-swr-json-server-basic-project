@@ -1,6 +1,7 @@
 const QUERY_KEYS = {
   // pokemon query keys
   ALL_POKEMON_CARDS: ["pokemon-cards"],
+  ALL_POKEMON_CARDS_PAGINATED: (page: number, limit: number) => ["pokemon-cards", { page }, { limit }],
   POKEMON_CARD_BY_ID: (id: number) => ["pokemon-cards", { id }],
 
   // yu-gi-oh query keys

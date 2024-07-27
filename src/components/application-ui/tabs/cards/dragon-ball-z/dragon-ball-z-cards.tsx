@@ -3,19 +3,17 @@ import useGetDragonBallZCardsQuery from "src/api/dragon-ball-z/queries/get-all-d
 import DragonBallZCardItem from "../card-item"
 
 export default function DragonBallZCards() {
-  const { data: cards, isLoading, error } = useGetDragonBallZCardsQuery()
-  // const { data: card, isLoading: isLoadingCard, error: errorCard } = useGetDragonBallZCardById(1)
+  // data is prefetched on the server we really don't need to check for the states, client gets the data instantly
+  const { data: cards, isPending, error, isError } = useGetDragonBallZCardsQuery()
+  // const { data: card, isPending: isLoadingCard, error: errorCard } = useGetDragonBallZCardById(1)
 
-  if (error) return <p>Error: {error.message}</p>
-  if (isLoading) return <p>Loading...</p>
+  if (isError) return <p>Error: {error.message}</p>
+  if (isPending) return <p>Loading...</p>
   if (!cards) return <p>No cards found</p>
-
-  // if (isLoadingCard) return <p>Loading...</p>
-  // if (errorCard) return <p>Error: {errorCard.message}</p>
-  // if (!card) return <p>Card not found</p>
 
   return (
     <Grid container gap={4} sx={{ display: "flex", justifyContent: "center" }}>
+      {/* List Of Dragon Ball Z Cards */}
       {cards.map((card) => (
         <DragonBallZCardItem key={card.id} card={card} />
       ))}

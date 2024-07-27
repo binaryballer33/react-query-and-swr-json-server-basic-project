@@ -57,7 +57,8 @@ export default function EditCardDialog(props: EditCardProps) {
     const updatePokemonCardMutation = useUpdatePokemonCardMutation()
     const updateDragonBallZCardMutation = useUpdateDragonBallZCardMutation()
 
-    switch (card.game) {
+    // TODO: fix this || GAME.POKEMON later, it's just a temporary fix
+    switch (card.game || GAME.POKEMON) {
       case GAME.YU_GI_OH:
         return {
           data: updateYuGiOhCardMutation.data,

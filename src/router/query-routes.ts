@@ -11,6 +11,7 @@ const QUERY_ROUTES = {
   // Pokemon Routes
   CREATE_POKEMON_CARD: "/pokemon/create-card",
   GET_ALL_POKEMON_CARDS: "/pokemon",
+  GET_ALL_POKEMON_CARDS_PAGINATED: (limit: number, page: number) => `/pokemon?_limit=${limit}&_page=${page}`,
   GET_POKEMON_CARD_BY_ID: (id: number) => `/pokemon/${id}`,
   UPDATE_POKEMON_CARD_BY_ID: (id: number) => `/pokemon/update-card/${id}`,
   DELETE_POKEMON_CARD_BY_ID: (id: number) => `/pokemon/delete-card/${id}`,
