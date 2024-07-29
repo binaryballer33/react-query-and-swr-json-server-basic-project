@@ -14,47 +14,47 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
  * Besides being bad for performance, this also leaks any sensitive data.
  */
 function makeQueryClient() {
-  return new QueryClient({
-    defaultOptions: {
-      queries: {
-        staleTime: 60 * 1000, // set some default staleTime to avoid refetching immediately on the client
-      },
-    },
-  })
+    return new QueryClient({
+        defaultOptions: {
+            queries: {
+                staleTime: 60 * 1000, // set some default staleTime to avoid refetching immediately on the client
+            },
+        },
+    })
 }
 
 // use hook useQueryClient to get the query client instance for client components
 let browserQueryClient: QueryClient | undefined
 
 function getQueryClient() {
-  // Server: ALWAYS make a new query client
-  if (isServer) return makeQueryClient()
+    // Server: ALWAYS make a new query client
+    if (isServer) return makeQueryClient()
 
-  /* Docs: https://tanstack.com/query/latest/docs/framework/react/guides/advanced-ssr
-   * Browser: make a new query client if we don't already have one
-   * This is very important, so we don't re-make a new client if React
-   * suspends during the initial render. This may not be needed if we
-   * have a suspense boundary BELOW the creation of the query client
-   */
-  if (!browserQueryClient) browserQueryClient = makeQueryClient()
-  return browserQueryClient
+    /* Docs: https://tanstack.com/query/latest/docs/framework/react/guides/advanced-ssr
+     * Browser: make a new query client if we don't already have one
+     * This is very important, so we don't re-make a new client if React
+     * suspends during the initial render. This may not be needed if we
+     * have a suspense boundary BELOW the creation of the query client
+     */
+    if (!browserQueryClient) browserQueryClient = makeQueryClient()
+    return browserQueryClient
 }
 
 type ReactQueryClientProviderProps = {
-  children: React.ReactNode
+    children: React.ReactNode
 }
 
 export default function ReactQueryClientProvider({ children }: ReactQueryClientProviderProps) {
-  // NOTE: Avoid useState when initializing the query client if you don't
-  //       have a suspense boundary between this and the code that may
-  //       suspend because React will throw away the client on the initial
-  //       render if it suspends and there is no boundary
-  const queryClient = getQueryClient()
+    // NOTE: Avoid useState when initializing the query client if you don't
+    //       have a suspense boundary between this and the code that may
+    //       suspend because React will throw away the client on the initial
+    //       render if it suspends and there is no boundary
+    const queryClient = getQueryClient()
 
-  return (
-    <QueryClientProvider client={queryClient}>
-      {children}
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
-  )
+    return (
+        <QueryClientProvider client={queryClient}>
+            {children}
+            <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProvider>
+    )
 }

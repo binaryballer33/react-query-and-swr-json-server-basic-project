@@ -5,12 +5,12 @@ import QUERY_ROUTES from "src/router/query-routes"
 import axiosInstance from "../../xhr-request-instance"
 
 export async function getYuGiOhCards() {
-  return (await axiosInstance.get(QUERY_ROUTES.GET_ALL_YUGIOH_CARDS)).data
+    return (await axiosInstance.get(QUERY_ROUTES.GET_ALL_YUGIOH_CARDS)).data
 }
 
 export default function useGetYuGiOhCardsQuery() {
-  return useQuery<YuGiOhCard[]>({
-    queryKey: QUERY_KEYS.ALL_YU_GI_OH_CARDS,
-    queryFn: getYuGiOhCards,
-  })
+    return useQuery<YuGiOhCard[]>({
+        queryKey: QUERY_KEYS.ALL_YU_GI_OH_CARDS,
+        queryFn: getYuGiOhCards,
+    })
 }

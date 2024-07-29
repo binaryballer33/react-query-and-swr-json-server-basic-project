@@ -13,23 +13,23 @@ import { getYuGiOhCards } from "src/api/yu-gi-oh/queries/get-all-yu-gi-oh-cards"
  * or comment out the HydrationBoundary or the await keywords on each prefetch
  */
 export default async function prefetchDataDehydrateState() {
-  const queryClient = await createQueryClient() // need to create a new queryClient for each request for server components
+    const queryClient = await createQueryClient() // need to create a new queryClient for each request for server components
 
-  await queryClient.prefetchQuery({
-    queryKey: QUERY_KEYS.ALL_POKEMON_CARDS,
-    queryFn: getPokemonCards,
-  })
+    await queryClient.prefetchQuery({
+        queryKey: QUERY_KEYS.ALL_POKEMON_CARDS,
+        queryFn: getPokemonCards,
+    })
 
-  await queryClient.prefetchQuery({
-    queryKey: QUERY_KEYS.ALL_DRAGON_BALL_Z_CARDS,
-    queryFn: getDragonBallZCards,
-  })
+    await queryClient.prefetchQuery({
+        queryKey: QUERY_KEYS.ALL_DRAGON_BALL_Z_CARDS,
+        queryFn: getDragonBallZCards,
+    })
 
-  await queryClient.prefetchQuery({
-    queryKey: QUERY_KEYS.ALL_YU_GI_OH_CARDS,
-    queryFn: getYuGiOhCards,
-  })
+    await queryClient.prefetchQuery({
+        queryKey: QUERY_KEYS.ALL_YU_GI_OH_CARDS,
+        queryFn: getYuGiOhCards,
+    })
 
-  // return the dehydrated state of the queryClient
-  return dehydrate(queryClient)
+    // return the dehydrated state of the queryClient
+    return dehydrate(queryClient)
 }

@@ -8,7 +8,7 @@ import QUERY_ROUTES from "src/router/query-routes"
 import axiosInstance from "../../xhr-request-instance"
 
 export async function createYuGiOhCard(card: YuGiOhCardWithoutId) {
-  return (await axiosInstance.post(QUERY_ROUTES.CREATE_YUGIOH_CARD, card)).data
+    return (await axiosInstance.post(QUERY_ROUTES.CREATE_YUGIOH_CARD, card)).data
 }
 
 /*
@@ -18,31 +18,31 @@ export async function createYuGiOhCard(card: YuGiOhCardWithoutId) {
  * you will get an error because the cache doesn't have the id because you didn't refetch the data from the database
  */
 export default function useCreateYuGiOhCardMutation() {
-  const queryClient = useQueryClient()
+    const queryClient = useQueryClient()
 
-  return useMutation<YuGiOhCardWithoutId, Error, YuGiOhCardWithoutId>({
-    onMutate: async (card) => {
-      // if there's a validation error, the mutation will not be called and the onError will be called
-      createCardRequestSchema.parse(card)
+    return useMutation<YuGiOhCardWithoutId, Error, YuGiOhCardWithoutId>({
+        onMutate: async (card) => {
+            // if there's a validation error, the mutation will not be called and the onError will be called
+            createCardRequestSchema.parse(card)
 
-      toast.loading(`Atempting To Create Yu-Gi-Oh Card: ${card.name}`, {
-        duration: 500,
-      })
-    },
+            toast.loading(`Atempting To Create Yu-Gi-Oh Card: ${card.name}`, {
+                duration: 500,
+            })
+        },
 
-    mutationFn: (card: YuGiOhCardWithoutId) => createYuGiOhCard(card),
+        mutationFn: (card: YuGiOhCardWithoutId) => createYuGiOhCard(card),
 
-    onSuccess(_data, card, _context) {
-      toast.success(`Successfully Created Yu-Gi-Oh Card: ${card.name} `)
-    },
+        onSuccess(_data, card, _context) {
+            toast.success(`Successfully Created Yu-Gi-Oh Card: ${card.name} `)
+        },
 
-    onError(error, card, _context) {
-      console.error(`Error Creating Yu-Gi-Oh Card: ${error}`)
-      toast.error(`Error Creating Yu-Gi-Oh Card ${card.name}`)
-    },
+        onError(error, card, _context) {
+            console.error(`Error Creating Yu-Gi-Oh Card: ${error}`)
+            toast.error(`Error Creating Yu-Gi-Oh Card ${card.name}`)
+        },
 
-    onSettled: async (_data, _error, _card, _context) => {
-      await queryClient.invalidateQueries({ queryKey: QUERY_KEYS.ALL_YU_GI_OH_CARDS })
-    },
-  })
+        onSettled: async (_data, _error, _card, _context) => {
+            await queryClient.invalidateQueries({ queryKey: QUERY_KEYS.ALL_YU_GI_OH_CARDS })
+        },
+    })
 }

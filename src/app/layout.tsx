@@ -6,24 +6,24 @@ import ProviderLayout from "src/layouts"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Testing React-Query And SWR With Next.js 14 App Router",
-  description: "React-Query And Stale-While-Revalidate (SWR) with Next.js",
+    title: "Testing React-Query And SWR With Next.js 14 App Router",
+    description: "React-Query And Stale-While-Revalidate (SWR) with Next.js",
 }
 
 type RootLayoutProps = {
-  children: React.ReactNode
+    children: React.ReactNode
 }
 
 export default function RootLayout({ children }: RootLayoutProps) {
-  return (
-    <html lang="en">
-      <body className={inter.className}>
-        <ProviderLayout>
-          <Box width="95%" m="auto">
-            <Box my={2}>{children}</Box>
-          </Box>
-        </ProviderLayout>
-      </body>
-    </html>
-  )
+    return (
+        <html lang="en">
+            <body className={inter.className}>
+                <ProviderLayout>
+                    <Box width="95%" m="auto">
+                        <Box my={2}>{children}</Box>
+                    </Box>
+                </ProviderLayout>
+            </body>
+        </html>
+    )
 }

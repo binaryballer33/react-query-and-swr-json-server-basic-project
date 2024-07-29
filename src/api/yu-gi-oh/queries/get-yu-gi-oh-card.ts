@@ -5,12 +5,12 @@ import { YuGiOhCard } from "src/model/cards/yu-gi-oh"
 import QUERY_ROUTES from "src/router/query-routes"
 
 export async function getYugiohCardById(cardId: number) {
-  return (await axiosInstance.get(QUERY_ROUTES.GET_YUGIOH_CARD_BY_ID(cardId))).data
+    return (await axiosInstance.get(QUERY_ROUTES.GET_YUGIOH_CARD_BY_ID(cardId))).data
 }
 
 export default function useGetYugiohCardByIdQuery(cardId: number) {
-  return useQuery<YuGiOhCard>({
-    queryKey: QUERY_KEYS.YU_GI_OH_CARD_BY_ID(cardId),
-    queryFn: () => getYugiohCardById(cardId),
-  })
+    return useQuery<YuGiOhCard>({
+        queryKey: QUERY_KEYS.YU_GI_OH_CARD_BY_ID(cardId),
+        queryFn: () => getYugiohCardById(cardId),
+    })
 }

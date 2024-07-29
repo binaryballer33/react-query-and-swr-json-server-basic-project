@@ -3,9 +3,9 @@ import { basicCardSchema } from "./basic-card"
 import GAME from "./game"
 
 export const yuGiOhCardSchema = basicCardSchema.extend({
-  game: z.literal(GAME.YU_GI_OH),
-  attack: z.preprocess((val) => Number(val), z.number()), // preprocess to convert to number
-  defense: z.preprocess((val) => Number(val), z.number()), // preprocess to convert to number
+    game: z.literal(GAME.YU_GI_OH),
+    attack: z.preprocess((val) => Number(val), z.number()), // preprocess to convert to number
+    defense: z.preprocess((val) => Number(val), z.number()), // preprocess to convert to number
 })
 
 export const yuGiOhCardSchemaWithoutId = yuGiOhCardSchema.omit({ id: true })

@@ -10,32 +10,32 @@ import { darkTheme, lightTheme } from "src/theme/theme"
 import "src/i18n/i18n" // for multilanguage support
 
 type ThemeProviderProps = {
-  children: ReactNode
+    children: ReactNode
 }
 
 function ThemeProvider({ children }: ThemeProviderProps) {
-  const { mode } = useSelector((state) => state.theme)
-  const theme = mode === "dark" ? darkTheme : lightTheme
+    const { mode } = useSelector((state) => state.theme)
+    const theme = mode === "dark" ? darkTheme : lightTheme
 
-  return (
-    <MuiThemeProvider theme={theme}>
-      <CssBaseline />
-      <Box display="flex" minHeight="100vh">
-        <ReactQueryClientProvider>{children}</ReactQueryClientProvider>
-      </Box>
-      <Toastr />
-    </MuiThemeProvider>
-  )
+    return (
+        <MuiThemeProvider theme={theme}>
+            <CssBaseline />
+            <Box display="flex" minHeight="100vh">
+                <ReactQueryClientProvider>{children}</ReactQueryClientProvider>
+            </Box>
+            <Toastr />
+        </MuiThemeProvider>
+    )
 }
 
 type LayoutProps = {
-  children: ReactNode
+    children: ReactNode
 }
 
 export default function Layout({ children }: LayoutProps) {
-  return (
-    <ReduxProvider store={store}>
-      <ThemeProvider>{children}</ThemeProvider>
-    </ReduxProvider>
-  )
+    return (
+        <ReduxProvider store={store}>
+            <ThemeProvider>{children}</ThemeProvider>
+        </ReduxProvider>
+    )
 }

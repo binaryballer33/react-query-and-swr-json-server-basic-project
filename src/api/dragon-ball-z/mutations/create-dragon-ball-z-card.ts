@@ -8,7 +8,7 @@ import QUERY_ROUTES from "src/router/query-routes"
 import axiosInstance from "../../xhr-request-instance"
 
 export async function createDragonBallZCard(card: DragonBallZCardWithoutId) {
-  return (await axiosInstance.post(QUERY_ROUTES.CREATE_DRAGON_BALL_Z_CARD, card)).data
+    return (await axiosInstance.post(QUERY_ROUTES.CREATE_DRAGON_BALL_Z_CARD, card)).data
 }
 
 /*
@@ -18,31 +18,31 @@ export async function createDragonBallZCard(card: DragonBallZCardWithoutId) {
  * you will get an error because the cache doesn't have the id because you didn't refetch the data from the database
  */
 export default function useCreateDragonBallZCardMutation() {
-  const queryClient = useQueryClient()
+    const queryClient = useQueryClient()
 
-  return useMutation<DragonBallZCardWithoutId, Error, DragonBallZCardWithoutId>({
-    onMutate: async (card) => {
-      // if there's a validation error, the mutation will not be called and the onError will be called
-      createCardRequestSchema.parse(card)
+    return useMutation<DragonBallZCardWithoutId, Error, DragonBallZCardWithoutId>({
+        onMutate: async (card) => {
+            // if there's a validation error, the mutation will not be called and the onError will be called
+            createCardRequestSchema.parse(card)
 
-      toast.loading(`Atempting To Create Dragon Ball Z Card: ${card.name}`, {
-        duration: 500,
-      })
-    },
+            toast.loading(`Atempting To Create Dragon Ball Z Card: ${card.name}`, {
+                duration: 500,
+            })
+        },
 
-    mutationFn: (card: DragonBallZCardWithoutId) => createDragonBallZCard(card),
+        mutationFn: (card: DragonBallZCardWithoutId) => createDragonBallZCard(card),
 
-    onSuccess(_data, card, _context) {
-      toast.success(`Successfully Created Dragon Ball Z Card: ${card.name} `)
-    },
+        onSuccess(_data, card, _context) {
+            toast.success(`Successfully Created Dragon Ball Z Card: ${card.name} `)
+        },
 
-    onError(error, card, _context) {
-      console.error(`Error Creating Dragon Ball Z Card: ${error}`)
-      toast.error(`Error Creating Dragon Ball Z Card ${card.name}`)
-    },
+        onError(error, card, _context) {
+            console.error(`Error Creating Dragon Ball Z Card: ${error}`)
+            toast.error(`Error Creating Dragon Ball Z Card ${card.name}`)
+        },
 
-    onSettled: async (_data, _error, _card, _context) => {
-      await queryClient.invalidateQueries({ queryKey: QUERY_KEYS.ALL_DRAGON_BALL_Z_CARDS })
-    },
-  })
+        onSettled: async (_data, _error, _card, _context) => {
+            await queryClient.invalidateQueries({ queryKey: QUERY_KEYS.ALL_DRAGON_BALL_Z_CARDS })
+        },
+    })
 }

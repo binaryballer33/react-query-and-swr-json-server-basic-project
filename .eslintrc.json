@@ -1,69 +1,69 @@
 {
-  "env": {
-    "node": true,
-    "es2021": true,
-    "browser": true
-  },
-  "globals": {
-    "React": true
-  },
-  "extends": [
-    "airbnb",
-    "prettier",
-    "eslint:recommended",
-    "plugin:@tanstack/eslint-plugin-query/recommended",
-    "next/core-web-vitals"
-  ],
-  "parserOptions": {
-    "ecmaVersion": 12,
-    "sourceType": "module",
-    "ecmaFeatures": { "jsx": true }
-  },
-  "plugins": ["@tanstack/query", "prettier"],
-  "rules": {
-    "prettier/prettier": ["error", { "endOfLine": "auto" }],
-    "curly": ["error", "multi"],
-    "import/extensions": "off",
-    "import/prefer-default-export": "warn",
-    "semi": 0, // let prettier handle this
-    "indent": "off", // let prettier handle this
-    "max-len": "off", // let prettier handle this
-    "comma-dangle": "off", // let prettier handle this
-    "operator-linebreak": "off", // let prettier handle this
+    "env": {
+        "node": true,
+        "es2021": true,
+        "browser": true
+    },
+    "globals": {
+        "React": true
+    },
+    "extends": [
+        "airbnb",
+        "prettier",
+        "eslint:recommended",
+        "plugin:@tanstack/eslint-plugin-query/recommended",
+        "next/core-web-vitals"
+    ],
+    "parserOptions": {
+        "ecmaVersion": 12,
+        "sourceType": "module",
+        "ecmaFeatures": { "jsx": true }
+    },
+    "plugins": ["@tanstack/query", "prettier"],
+    "rules": {
+        "prettier/prettier": ["error", { "endOfLine": "auto" }],
+        "curly": ["error", "multi"],
+        "import/extensions": "off",
+        "import/prefer-default-export": "warn",
+        "semi": 0, // let prettier handle this
+        "indent": "off", // let prettier handle this
+        "max-len": "off", // let prettier handle this
+        "comma-dangle": "off", // let prettier handle this
+        "operator-linebreak": "off", // let prettier handle this
 
-    "react/jsx-no-target-blank": "off",
-    "react/jsx-filename-extension": "off",
-    "react/jsx-one-expression-per-line": "off", // let prettier handle this
-    "react/jsx-props-no-spreading": "off",
-    "react/react-in-jsx-scope": "off",
-    "react/button-has-type": "off",
-    "react/forbid-prop-types": "off",
-    "react/require-default-props": "off", // let typescript handle this
-    "react/jsx-indent": "off", // let prettier handle this
+        "react/jsx-no-target-blank": "off",
+        "react/jsx-filename-extension": "off",
+        "react/jsx-one-expression-per-line": "off", // let prettier handle this
+        "react/jsx-props-no-spreading": "off",
+        "react/react-in-jsx-scope": "off",
+        "react/button-has-type": "off",
+        "react/forbid-prop-types": "off",
+        "react/require-default-props": "off", // let typescript handle this
+        "react/jsx-indent": "off", // let prettier handle this
 
-    "no-shadow": "off",
-    "no-case-declarations": "off",
-    "no-redeclare": "off", // let typescript handle this
-    "no-unused-expressions": "off",
-    "no-unused-vars": "off", // let typescript handle this
-    "no-param-reassign": "off",
-    "no-restricted-imports": [
-      "error",
-      {
-        "paths": [
-          {
-            "name": "react",
-            "importNames": ["default"],
-            "message": "Direct import of React is not allowed. Use React features from the 'react/jsx-runtime' instead."
-          }
-        ]
-      }
-    ], // get rid of direct import of React, after React 17 this is not necessary
+        "no-shadow": "off",
+        "no-case-declarations": "off",
+        "no-redeclare": "off", // let typescript handle this
+        "no-unused-expressions": "off",
+        "no-unused-vars": "off", // let typescript handle this
+        "no-param-reassign": "off",
+        "no-restricted-imports": [
+            "error",
+            {
+                "paths": [
+                    {
+                        "name": "react",
+                        "importNames": ["default"],
+                        "message": "Direct import of React is not allowed. Use React features from the 'react/jsx-runtime' instead."
+                    }
+                ]
+            }
+        ], // get rid of direct import of React, after React 17 this is not necessary
 
-    "arrow-body-style": "off",
-    "object-curly-newline": "off", // let prettier handle this
-    "function-paren-newline": "off", // let prettier handle this
-    "implicit-arrow-linebreak": "off", // let prettier handle this
-    "nonblock-statement-body-position": "off" // let prettier handle this
-  }
+        "arrow-body-style": "off",
+        "object-curly-newline": "off", // let prettier handle this
+        "function-paren-newline": "off", // let prettier handle this
+        "implicit-arrow-linebreak": "off", // let prettier handle this
+        "nonblock-statement-body-position": "off" // let prettier handle this
+    }
 }

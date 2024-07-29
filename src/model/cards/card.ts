@@ -6,15 +6,15 @@ import { yuGiOhCardSchema, yuGiOhCardSchemaWithoutId, YuGiOhCardWithoutId } from
 
 // lets you get nested conditional types
 export type NestedConditionalType<T> = {
-  [K in keyof T]: T[K]
+    [K in keyof T]: T[K]
 } & {}
 
 export const deleteOrUpdateCardRequestSchema = z.union([yuGiOhCardSchema, dragonBallZCardSchema, pokemonCardSchema])
 
 export const createCardRequestSchema = z.union([
-  yuGiOhCardSchemaWithoutId,
-  dragonBallZCardSchemaWithoutId,
-  pokemonCardSchemaWithoutId,
+    yuGiOhCardSchemaWithoutId,
+    dragonBallZCardSchemaWithoutId,
+    pokemonCardSchemaWithoutId,
 ])
 
 // Deleting and Updating a card requires an id field
@@ -24,30 +24,30 @@ export type DeleteOrUpdateCardRequest = z.infer<typeof deleteOrUpdateCardRequest
 export type CreateCardRequest = z.infer<typeof createCardRequestSchema>
 
 export const defaultValuesCreateCardRequest = (game: GAME): CreateCardRequest => {
-  switch (game) {
-    case GAME.YU_GI_OH:
-      return {
-        game: GAME.YU_GI_OH,
-        name: "",
-        img: "",
-        attack: 0,
-        defense: 0,
-      } satisfies YuGiOhCardWithoutId
-    case GAME.POKEMON:
-      return {
-        game: GAME.POKEMON,
-        name: "",
-        img: "",
-        type: "Normal",
-      } satisfies PokemonCardWithoutId
-    case GAME.DRAGON_BALL_Z:
-      return {
-        game: GAME.DRAGON_BALL_Z,
-        name: "",
-        img: "",
-        powerLevel: 0,
-      } satisfies DragonBallZCardWithoutId
-    default:
-      throw new Error("Invalid game type")
-  }
+    switch (game) {
+        case GAME.YU_GI_OH:
+            return {
+                game: GAME.YU_GI_OH,
+                name: "",
+                img: "",
+                attack: 0,
+                defense: 0,
+            } satisfies YuGiOhCardWithoutId
+        case GAME.POKEMON:
+            return {
+                game: GAME.POKEMON,
+                name: "",
+                img: "",
+                type: "Normal",
+            } satisfies PokemonCardWithoutId
+        case GAME.DRAGON_BALL_Z:
+            return {
+                game: GAME.DRAGON_BALL_Z,
+                name: "",
+                img: "",
+                powerLevel: 0,
+            } satisfies DragonBallZCardWithoutId
+        default:
+            throw new Error("Invalid game type")
+    }
 }

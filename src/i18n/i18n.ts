@@ -8,18 +8,18 @@ import pt from "./translations/pt"
 import zh from "./translations/zh"
 
 i18n.use(initReactI18next).init({
-  resources: {
-    de: { translation: de },
-    es: { translation: es },
-    br: { translation: pt },
-    pt: { translation: pt },
-    fr: { translation: fr },
-    ae: { translation: ae },
-    zh: { translation: zh },
-  },
-  lng: "en",
-  fallbackLng: "en",
-  interpolation: {
-    escapeValue: false,
-  },
+    resources: {
+        de: { translation: de },
+        es: { translation: es },
+        br: { translation: pt },
+        pt: { translation: pt },
+        fr: { translation: fr },
+        ae: { translation: ae },
+        zh: { translation: zh },
+    },
+    lng: "en",
+    fallbackLng: "en",
+    interpolation: {
+        escapeValue: false,
+    },
 })

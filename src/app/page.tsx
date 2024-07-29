@@ -5,15 +5,15 @@ import ThemeModeToggler from "src/components/application-ui/theme-mode-toggler/t
 import prefetchDataDehydrateState from "./prefetch-home-page-data"
 
 export default async function Home() {
-  const dehydratedState = await prefetchDataDehydrateState()
-  return (
-    <HydrationBoundary state={dehydratedState}>
-      <Container maxWidth="xl" sx={{ mt: 10 }}>
-        <Box my={4}>
-          <ThemeModeToggler />
-        </Box>
-        <CardTabs />
-      </Container>
-    </HydrationBoundary>
-  )
+    const dehydratedState = await prefetchDataDehydrateState()
+    return (
+        <HydrationBoundary state={dehydratedState}>
+            <Container maxWidth="xl" sx={{ mt: 10 }}>
+                <Box my={4}>
+                    <ThemeModeToggler />
+                </Box>
+                <CardTabs />
+            </Container>
+        </HydrationBoundary>
+    )
 }

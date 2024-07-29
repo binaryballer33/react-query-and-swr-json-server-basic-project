@@ -5,17 +5,17 @@ import { Dot, DotList } from "../styles"
 
 // ==============================================================
 interface Props extends BoxProps {
-  dotColor?: string
+    dotColor?: string
 }
 // ==============================================================
 
 export default function CarouselDots({ dotColor, ...props }: Props) {
-  return {
-    customPaging: () => <Dot dotColor={dotColor} />,
-    appendDots: (dots: ReactNode) => (
-      <DotList component="ul" {...props}>
-        {dots}
-      </DotList>
-    ),
-  }
+    return {
+        customPaging: () => <Dot dotColor={dotColor} />,
+        appendDots: (dots: ReactNode) => (
+            <DotList component="ul" {...props}>
+                {dots}
+            </DotList>
+        ),
+    }
 }
