@@ -2,11 +2,9 @@ import { Unstable_Grid2 as Grid } from "@mui/material/"
 import { useSearchParams } from "next/navigation"
 import useGetPokemonCardsPaginatedQuery from "src/api/pokemon/queries/get-all-pokemon-cards-paginated"
 import PaginationControls from "src/components/base/pagination/pagination-controls"
-import { PokemonCard } from "src/model/cards/pokemon"
 import PokemonCardItem from "../card-item"
 
 export default function PokemonCardsPaginated() {
-    // TODO: use server side pagination to improve performance and also to make the interactive elements work instantly, separate client side components in their own component
     const searchParams = useSearchParams()
     const limit = parseInt(searchParams.get("_limit") ?? "25", 10)
     const page = parseInt(searchParams.get("_page") ?? "1", 10)

@@ -124,9 +124,6 @@ export default function CardItem({ card }: CardItemProps) {
 
                 {/* Card Type Specific Content */}
                 <Box p={2}>
-                    {/* TODO: Might prevent this from being given to this component */}
-                    {/* <h2>Id: {card.id}</h2> */}
-
                     <H4>Name: {card.name}</H4>
 
                     {/* Dragon Ball Z Cards */}
