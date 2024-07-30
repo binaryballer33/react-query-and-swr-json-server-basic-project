@@ -1,62 +1,55 @@
+"use client"
+
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft"
 import ChevronRightIcon from "@mui/icons-material/ChevronRight"
 import FirstPageIcon from "@mui/icons-material/FirstPage"
 import LastPageIcon from "@mui/icons-material/LastPage"
 import { Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material"
 import { useRouter } from "next/navigation"
-import { Dispatch, SetStateAction, useCallback, useState } from "react"
+import { useCallback } from "react"
 import FlexEvenly from "src/components/base/flex-box/flex-evenly"
-import { DeleteOrUpdateCardRequest } from "src/model/cards/card"
 
 type PaginationControlsProps = {
-    setPage: Dispatch<SetStateAction<number>>
+    limit: number
+    page: number
+    firstItem: number
+    lastItem: number
     isPlaceHolderData: boolean
-    data: {
-        cards: DeleteOrUpdateCardRequest[]
-        totalCards: number
-        lastPage: number
-        limit: number
-        page: number
-    }
+    items: any[]
 }
 
 export default function PaginationControls(props: PaginationControlsProps) {
-    const {
-        data: { totalCards, lastPage, limit, page },
-        setPage,
-        isPlaceHolderData,
-    } = props
+    const { limit, page, firstItem, lastItem, isPlaceHolderData, items } = props
 
     const router = useRouter()
 
-    const firstCard = (page - 1) * limit + 1
-    const lastCard = Math.min(page * limit, totalCards)
-    const [cardsPerPage, setCardsPerPage] = useState<number>(limit)
+    const totalItems: number = items.length
+    const lastPage = Math.ceil(totalItems / limit)
+    const cardsPerPageOptions = [5, 10, 25, 50, 100]
 
-    const handleChangeCardsPerPage = useCallback(
+    const handleChangeItemsPerPage = useCallback(
         (event: SelectChangeEvent) => {
-            router.push(`?_limit=${event.target.value}&_page=${page}`)
-            setCardsPerPage(parseInt(event.target.value, 10))
-            // setPage(1)
+            // if the new limit is less than the current page, go to the first page
+            const newLimit = parseInt(event.target.value, 10)
+            const newPage = Math.ceil(totalItems / newLimit) >= page ? page : 1
+            router.push(`/?_limit=${newLimit}&_page=${newPage}`)
         },
-        [router, setCardsPerPage, page],
+        [page, router, totalItems],
     )
 
     const handleGoToPage = useCallback(
         (page: number) => {
-            router.push(`?_limit=${cardsPerPage}&_page=${page}`)
-            setPage(page)
+            router.push(`/?_limit=${limit}&_page=${page}`)
         },
-        [setPage, router, cardsPerPage],
+        [router, limit],
     )
 
     const handleChangePage = useCallback(
         (direction: "prev" | "next") => {
             const newPage = direction === "next" ? page + 1 : page - 1
-            router.push(`?_limit=${cardsPerPage}&_page=${newPage}`)
-            setPage(newPage)
+            router.push(`/?_limit=${limit}&_page=${newPage}`)
         },
-        [setPage, router, page, cardsPerPage],
+        [router, page, limit],
     )
 
     return (
@@ -71,20 +64,23 @@ export default function PaginationControls(props: PaginationControlsProps) {
                 <FormControl size="small" sx={{ width: 120 }}>
                     <InputLabel htmlFor="demo-pagination-select-label">Cards per page</InputLabel>
                     <Select
-                        value={String(cardsPerPage)}
+                        value={String(limit)}
                         label="Item per page"
-                        onChange={handleChangeCardsPerPage}
+                        onChange={handleChangeItemsPerPage}
                         inputProps={{ id: "demo-pagination-select-label" }}
                     >
-                        <MenuItem value={5}>5</MenuItem>
-                        <MenuItem value={10}>10</MenuItem>
-                        <MenuItem value={25}>25</MenuItem>
+                        {/* Dropdown Options */}
+                        {cardsPerPageOptions.map((item) => (
+                            <MenuItem key={item} value={item}>
+                                {item}
+                            </MenuItem>
+                        ))}
                     </Select>
                 </FormControl>
 
-                {/* How Many Cards Are Showing Out Of The Total Cards */}
+                {/* Indicates Many Cards Are Showing Out Of The Total Cards */}
                 <span>
-                    {firstCard}-{lastCard} of {totalCards}
+                    {firstItem + 1}-{lastItem} of {totalItems}
                 </span>
             </FlexEvenly>
 
