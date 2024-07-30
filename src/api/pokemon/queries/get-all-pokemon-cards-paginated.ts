@@ -20,7 +20,7 @@ export async function getPokemonPaginated(limit: number, page: number) {
 
 export default function useGetPokemonCardsPaginatedQuery(limit = 10, page = 1) {
     return useQuery({
-        queryKey: QUERY_KEYS.ALL_POKEMON_CARDS_PAGINATED(page, limit),
+        queryKey: QUERY_KEYS.ALL_POKEMON_CARDS_PAGINATED(limit, page),
         queryFn: () => getPokemonPaginated(limit, page),
         placeholderData: keepPreviousData,
     })
