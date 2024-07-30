@@ -98,7 +98,7 @@ function a11yProps(index: number) {
 export default function CardTabs() {
     const theme = useTheme()
     const smUp = useMediaQuery(theme.breakpoints.up("sm"))
-    const [value, setValue] = useState(2)
+    const [value, setValue] = useState(3)
 
     const { dialogOpen, toggleDialog } = useHeader()
 

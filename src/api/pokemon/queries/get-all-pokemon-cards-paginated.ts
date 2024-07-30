@@ -7,11 +7,11 @@ import QUERY_ROUTES from "src/router/query-routes"
 export async function getPokemonPaginated(limit: number, page: number) {
     const response = await axiosInstance.get(QUERY_ROUTES.GET_ALL_POKEMON_CARDS_PAGINATED(limit, page))
     const totalCards: number = response.headers["x-total-count"] // x-total-count has to be cased like this
-    const totalPages = Math.ceil(totalCards / limit)
+    const lastPage = Math.ceil(totalCards / limit)
 
     return {
         totalCards,
-        totalPages,
+        lastPage,
         cards: response.data as PokemonCard[],
         limit,
         page,

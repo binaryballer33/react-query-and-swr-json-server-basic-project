@@ -10,23 +10,24 @@ import Carousel from "src/components/application-ui/carousel/carousel"
 import FlexBox from "src/components/base/flex-box/flex-box"
 import { H2, H6, Paragraph } from "src/components/base/typography"
 import { DeleteOrUpdateCardRequest } from "src/model/cards/card"
+import GAME from "src/model/cards/game"
 
-type Props = {
+type ImageBoxProps = BoxProps & {
+    src: string
+    alt: string
+}
+
+type CardItemQuickViewDialogProps = {
     card: DeleteOrUpdateCardRequest
     dialogOpen: boolean
     toggleDialog: () => void
 }
 
-type BlazarImageProps = BoxProps & {
-    src: string
-    alt: string
-}
-
-function ImageBox(props: BlazarImageProps) {
+function ImageBox(props: ImageBoxProps) {
     return <Box component="img" {...props} />
 }
 
-export default function CardItemQuickViewDialog(props: Props) {
+export default function CardItemQuickViewDialog(props: CardItemQuickViewDialogProps) {
     const { card, dialogOpen, toggleDialog } = props
 
     return (
@@ -64,7 +65,8 @@ export default function CardItemQuickViewDialog(props: Props) {
                             {/* Card Name */}
                             <Stack>
                                 <H2>{card.name}</H2>
-                                <H2>Pokedex # {card.id}</H2>
+
+                                {card.game === GAME.POKEMON && <H2>Pokédex # {card.id}</H2>}
                             </Stack>
 
                             {/* Card Rating */}

@@ -14,7 +14,7 @@ type PaginationControlsProps = {
     data: {
         cards: DeleteOrUpdateCardRequest[]
         totalCards: number
-        totalPages: number
+        lastPage: number
         limit: number
         page: number
     }
@@ -22,7 +22,7 @@ type PaginationControlsProps = {
 
 export default function PaginationControls(props: PaginationControlsProps) {
     const {
-        data: { totalCards, totalPages, limit, page },
+        data: { totalCards, lastPage, limit, page },
         setPage,
         isPlaceHolderData,
     } = props
@@ -33,10 +33,14 @@ export default function PaginationControls(props: PaginationControlsProps) {
     const lastCard = Math.min(page * limit, totalCards)
     const [cardsPerPage, setCardsPerPage] = useState<number>(limit)
 
-    const handleChangeRowsPerPage = useCallback((event: SelectChangeEvent) => {
-        setCardsPerPage(parseInt(event.target.value, 10))
-        // setPage(1)
-    }, [])
+    const handleChangeCardsPerPage = useCallback(
+        (event: SelectChangeEvent) => {
+            router.push(`?_limit=${event.target.value}&_page=${page}`)
+            setCardsPerPage(parseInt(event.target.value, 10))
+            // setPage(1)
+        },
+        [router, setCardsPerPage, page],
+    )
 
     const handleGoToPage = useCallback(
         (page: number) => {
@@ -60,7 +64,7 @@ export default function PaginationControls(props: PaginationControlsProps) {
             {/* Pagination Text */}
             <FlexEvenly>
                 <span>
-                    Page: {page} of {totalPages}
+                    Page: {page} of {lastPage}
                 </span>
 
                 {/* Dropdown For  Cards Per Page */}
@@ -69,7 +73,7 @@ export default function PaginationControls(props: PaginationControlsProps) {
                     <Select
                         value={String(cardsPerPage)}
                         label="Item per page"
-                        onChange={handleChangeRowsPerPage}
+                        onChange={handleChangeCardsPerPage}
                         inputProps={{ id: "demo-pagination-select-label" }}
                     >
                         <MenuItem value={5}>5</MenuItem>
@@ -92,10 +96,10 @@ export default function PaginationControls(props: PaginationControlsProps) {
                 <Button onClick={() => handleChangePage("prev")} disabled={page === 1 || isPlaceHolderData}>
                     <ChevronLeftIcon />
                 </Button>
-                <Button onClick={() => handleChangePage("next")} disabled={isPlaceHolderData || page === totalPages}>
+                <Button onClick={() => handleChangePage("next")} disabled={isPlaceHolderData || page === lastPage}>
                     <ChevronRightIcon />
                 </Button>
-                <Button onClick={() => handleGoToPage(totalPages)} disabled={isPlaceHolderData}>
+                <Button onClick={() => handleGoToPage(lastPage)} disabled={isPlaceHolderData}>
                     <LastPageIcon />
                 </Button>
             </FlexEvenly>
