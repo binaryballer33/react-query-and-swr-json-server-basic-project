@@ -56,10 +56,6 @@ export default function PaginationControls(props: PaginationControlsProps) {
         <>
             {/* Pagination Text */}
             <FlexEvenly>
-                <span>
-                    Page: {page} of {lastPage}
-                </span>
-
                 {/* Dropdown For  Cards Per Page */}
                 <FormControl size="small" sx={{ width: 120 }}>
                     <InputLabel htmlFor="demo-pagination-select-label">Cards per page</InputLabel>
@@ -92,6 +88,11 @@ export default function PaginationControls(props: PaginationControlsProps) {
                 <Button onClick={() => handleChangePage("prev")} disabled={page === 1 || isPlaceHolderData}>
                     <ChevronLeftIcon />
                 </Button>
+
+                <span>
+                    Page: {page} of {lastPage}
+                </span>
+
                 <Button onClick={() => handleChangePage("next")} disabled={isPlaceHolderData || page === lastPage}>
                     <ChevronRightIcon />
                 </Button>
