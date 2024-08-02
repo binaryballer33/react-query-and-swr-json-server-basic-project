@@ -26,7 +26,7 @@ import useCreateYuGiOhCardMutation from "src/api/yu-gi-oh/mutations/create-yugio
 import { CreateCardRequest, createCardRequestSchema, defaultValuesCreateCardRequest } from "src/model/cards/card"
 import { DragonBallZCardWithoutId } from "src/model/cards/dragon-ball-z"
 import GAME from "src/model/cards/game"
-import { pokemonCardSchemaWithoutId, PokemonCardWithoutId } from "src/model/cards/pokemon"
+import { PokemonCardWithoutId, PokemonType } from "src/model/cards/pokemon"
 import { YuGiOhCard } from "src/model/cards/yu-gi-oh"
 import CreateCardInput from "./create-card-form-input"
 
@@ -108,14 +108,12 @@ export default function CreateCardFormDialog(props: CreateCardProps) {
         [resetFormFields, toggleDialog, createCardMutation, game],
     )
 
-    // get the text fields from the initial form state, leave out the game field, needs to be a select field
-    // const inputFields = Object.keys(defaultValuesCreateCardRequest(game)).filter((field) => field !== "game")
-
     // get the text fields from the card, but leave out a few fields
     const inputFields = Object.keys(defaultValuesCreateCardRequest(game)).filter(
         (field) => !["game", "type"].includes(field),
     )
-    const pokemonTypes = pokemonCardSchemaWithoutId.shape.type.options.map(String) // get the string[] of pokemon types from the schema
+
+    const pokemonTypes = Object.values(PokemonType)
 
     return (
         <Dialog scroll="body" open={dialogOpen} fullWidth={isMobile} onClose={toggleDialog}>

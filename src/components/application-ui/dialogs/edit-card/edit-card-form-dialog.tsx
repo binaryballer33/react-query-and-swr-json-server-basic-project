@@ -25,7 +25,7 @@ import useUpdateYuGiOhCardMutation from "src/api/yu-gi-oh/mutations/update-yugio
 import { DeleteOrUpdateCardRequest, deleteOrUpdateCardRequestSchema } from "src/model/cards/card"
 import { DragonBallZCard } from "src/model/cards/dragon-ball-z"
 import GAME from "src/model/cards/game"
-import { PokemonCard, pokemonCardSchemaWithoutId } from "src/model/cards/pokemon"
+import { PokemonCard, PokemonType } from "src/model/cards/pokemon"
 import { YuGiOhCard } from "src/model/cards/yu-gi-oh"
 import EditCardInput from "./edit-card-form-input"
 
@@ -100,7 +100,8 @@ export default function EditCardDialog(props: EditCardProps) {
 
     // get the text fields from the card, but leave out a few fields
     const inputFields = Object.keys(card).filter((field) => !["game", "id", "type"].includes(field))
-    const pokemonTypes = pokemonCardSchemaWithoutId.shape.type.options.map(String) // get the string[] of pokemon types from the schema
+    const pokemonTypes = Object.values(PokemonType)
+    console.log(pokemonTypes)
 
     return (
         <Dialog scroll="body" open={dialogOpen} fullWidth={isMobile} onClose={toggleDialog}>
@@ -136,7 +137,7 @@ export default function EditCardDialog(props: EditCardProps) {
                                     )
                                 })}
 
-                                {/* Select Pokemon Type From Dropdown */}
+                                {/* Select Pokémon Type From Dropdown */}
                                 {card.game === GAME.POKEMON && (
                                     <Grid xs={12}>
                                         <Box mb="15px" pl={1}>

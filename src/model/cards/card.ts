@@ -1,7 +1,7 @@
 import { z } from "zod"
 import { dragonBallZCardSchema, dragonBallZCardSchemaWithoutId, DragonBallZCardWithoutId } from "./dragon-ball-z"
 import GAME from "./game"
-import { pokemonCardSchema, pokemonCardSchemaWithoutId, PokemonCardWithoutId } from "./pokemon"
+import { pokemonCardSchema, pokemonCardSchemaWithoutId, PokemonCardWithoutId, PokemonType } from "./pokemon"
 import { yuGiOhCardSchema, yuGiOhCardSchemaWithoutId, YuGiOhCardWithoutId } from "./yu-gi-oh"
 
 // lets you get nested conditional types
@@ -38,7 +38,7 @@ export const defaultValuesCreateCardRequest = (game: GAME): CreateCardRequest =>
                 game: GAME.POKEMON,
                 name: "",
                 img: "",
-                type: "normal",
+                type: PokemonType.Normal,
             } satisfies PokemonCardWithoutId
         case GAME.DRAGON_BALL_Z:
             return {
