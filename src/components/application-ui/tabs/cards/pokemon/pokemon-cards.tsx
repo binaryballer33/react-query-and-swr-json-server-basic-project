@@ -9,7 +9,6 @@ import useGetPokemonCardsPaginatedQuery from "src/api/pokemon/queries/get-all-po
 import FlexEvenly from "src/components/base/flex-box/flex-evenly"
 import PokemonCardItem from "../card-item"
 
-// TODO: improve performance by using server side pagination, 150 pokemon cards are loading instantly but their interactive elements are not working until hydration is done, try to but all client side components in their own component
 export default function PokemonCards() {
     // data is prefetched on the server we really don't need to check for the states, client gets the data instantly
     const { data: cards, isPending, isError, error } = useGetPokemonCardsQuery()

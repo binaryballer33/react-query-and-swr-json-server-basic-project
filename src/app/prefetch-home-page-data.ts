@@ -16,8 +16,8 @@ export default async function prefetchDataDehydrateState() {
     const queryClient = await createQueryClient() // need to create a new queryClient for each request for server components
 
     await queryClient.prefetchQuery({
-        queryKey: QUERY_KEYS.ALL_POKEMON_CARDS,
-        queryFn: getPokemonCards,
+        queryKey: QUERY_KEYS.ALL_YU_GI_OH_CARDS,
+        queryFn: getYuGiOhCards,
     })
 
     await queryClient.prefetchQuery({
@@ -26,8 +26,8 @@ export default async function prefetchDataDehydrateState() {
     })
 
     await queryClient.prefetchQuery({
-        queryKey: QUERY_KEYS.ALL_YU_GI_OH_CARDS,
-        queryFn: getYuGiOhCards,
+        queryKey: QUERY_KEYS.ALL_POKEMON_CARDS,
+        queryFn: getPokemonCards,
     })
 
     // return the dehydrated state of the queryClient

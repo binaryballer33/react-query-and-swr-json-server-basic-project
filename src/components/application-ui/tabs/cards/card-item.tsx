@@ -31,21 +31,23 @@ export const Card = styled("div")(({ theme }) => ({
     borderRadius: "3px",
     transition: "all 0.3s",
     backgroundColor: theme.palette.background.default,
-    border: `1px solid ${theme.palette.grey[100]}`,
+    border: `1px solid ${theme.palette.neutral[800]}`,
     ":hover": {
         "& .product-actions": { right: 5 },
-        "& img": { transform: "scale(1.08)" },
-        border: `1px solid ${theme.palette.neutral[800]}`,
+        border: `1px solid ${theme.palette.grey[100]}`,
     },
 }))
 
 export const CardMedia = styled("div")({
     width: "100%",
-    maxHeight: 300,
+    maxHeight: 320,
     cursor: "pointer",
     overflow: "hidden",
     position: "relative",
     "& img": { transition: "0.3s" },
+    ":hover": {
+        "& img": { transform: "scale(1.08)" },
+    },
 })
 
 export const StyledIconButton = styled(IconButton)({
@@ -124,9 +126,6 @@ export default function CardItem({ card }: CardItemProps) {
 
                 {/* Card Type Specific Content */}
                 <Box p={2}>
-                    {/* TODO: Might prevent this from being given to this component */}
-                    {/* <h2>Id: {card.id}</h2> */}
-
                     <H4>Name: {card.name}</H4>
 
                     {/* Dragon Ball Z Cards */}
