@@ -164,7 +164,7 @@ export default function CreateCardFormDialog(props: CreateCardProps) {
                                     )
                                 })}
 
-                                {/* Select Pokemon Type From Dropdown */}
+                                {/* Select Pokémon Type From Dropdown */}
                                 {game === GAME.POKEMON && (
                                     <Grid xs={12}>
                                         <Box mb="15px" pl={1}>
@@ -181,9 +181,10 @@ export default function CreateCardFormDialog(props: CreateCardProps) {
                                              * This field object contains methods and properties to manage the input's state and events.
                                              * The field object is spread into the Select component using {...field},
                                              * which binds the Select component to the form's state and validation.
+                                             *  value={field.value ?? ""} removes the warning about uncontrolled components from chrome dev console
                                              */
                                             render={({ field }) => (
-                                                <Select {...field} fullWidth>
+                                                <Select {...field} fullWidth value={field.value ?? ""}>
                                                     {pokemonTypes.map((type) => (
                                                         <MenuItem key={type} value={type}>
                                                             {type}
